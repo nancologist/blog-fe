@@ -4,6 +4,16 @@
   box-sizing: border-box;
 }
 
+/* Unset link stylings */
+a {
+  text-decoration: none;
+  cursor: pointer;
+  text-align: center;
+}
+a:visited {
+  color: inherit;
+}
+
 /* Remove increase and decrease arrows from input:number -- */
 
 /* Chrome, Safari, Edge, Opera */
@@ -19,7 +29,3 @@ input[type=number] {
 }
 
 /* ------------------------------------------------------- */
-
-body {
-  background-color: #ededed;
-}

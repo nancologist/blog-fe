@@ -1,0 +1,13 @@
+.nav {
+  display: flex;
+  padding: 10px;
+  justify-content: start;
+}
+
+.nav__item {
+  margin-right: 15px;
+}
+
+.active {
+  text-decoration: underline;
+}
