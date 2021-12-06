@@ -1,5 +1,7 @@
-Create ReactApp + TS using NPM:  
-`npx create-react-app . --use-npm --template typescript`
+1.Create ReactApp + TS using NPM:  
+    `npx create-react-app . --use-npm --template typescript`
+2. Add React Router:  
+    `npm install react-router-dom@6`
 
 # Getting Started with Create React App
 
