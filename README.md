@@ -1,7 +1,10 @@
-1.Create ReactApp + TS using NPM:  
+__Init:__  
+
+1. Create ReactApp + TS using NPM:  
     `npx create-react-app . --use-npm --template typescript`
 2. Add React Router:  
     `npm install react-router-dom@6`
+3. `npm install --save axios`
 
 # Getting Started with Create React App
 

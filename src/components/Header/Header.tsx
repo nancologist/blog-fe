@@ -6,11 +6,12 @@ const Header = () => {
     <header>
       <nav className="nav">{navItems.map(item => 
           <NavLink
-            to={item.path}
             className={({ isActive }) => [
               'nav__item',
               isActive ? 'active' : null
             ].join(' ')}
+            key={item.path}
+            to={item.path}
           >
             {item.label}
           </NavLink>

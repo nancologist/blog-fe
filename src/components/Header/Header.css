@@ -1,7 +1,7 @@
 .nav {
   display: flex;
   padding: 10px;
-  justify-content: start;
+  justify-content: flex-start;
 }
 
 .nav__item {
