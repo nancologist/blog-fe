@@ -6,7 +6,8 @@ const http = axios.create({
 })
 
 const api = {
-  test: http.get('test')
+  test: http.get('test'),
+  uploadImg: http.post('up-image')
 };
 
 export default api;
