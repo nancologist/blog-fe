@@ -1,6 +1,5 @@
 import { useState, ChangeEvent, SyntheticEvent } from 'react';
 import { Route, Routes } from 'react-router-dom';
-import axios from 'axios'
 
 import './App.css';
 import api from '../api';
@@ -13,21 +12,22 @@ import Home from '../pages/Home/Home';
 
 const App = () => {
   const [person, setPerson] = useState<IPerson | undefined>(undefined);
-  // const [selectedFile, setSelectedFile] = useState(undefined);
+  const [selectedFile, setSelectedFile] = useState<File | undefined>(undefined);
 
-  const handleFileChange = (event: ChangeEvent) => {
+  const handleFileChange = (event: ChangeEvent | DragEvent) => {
+    const files = (event.target as HTMLInputElement).files! ||
+      (event as DragEvent).dataTransfer!.files // dataTransfer: Drag Event
+    console.log(files[0]);
+    setSelectedFile(files[0])
   }
 
   const handleSubmit = (event: SyntheticEvent) => {
     event.preventDefault()
 
     let data = new FormData();
+    data.append('myImage', selectedFile as File)
 
-    // const config = {
-    //     headers: { 'content-type': 'multipart/form-data' }
-    // }
-
-    api.uploadImg
+    api.uploadImg(data)
       .then(res => {
           console.log(res);
       })
@@ -53,7 +53,9 @@ const App = () => {
       <code>Age: {person?.age}</code><br />
       <code>Country: {person?.country}</code><br /><br />
 
-      <form onSubmit={handleSubmit}>
+      <form
+        onSubmit={handleSubmit}
+      >
         <input
           id="fileInput"
           type="file"

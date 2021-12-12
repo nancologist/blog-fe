@@ -7,7 +7,15 @@ const http = axios.create({
 
 const api = {
   test: http.get('test'),
-  uploadImg: http.post('up-image')
+  uploadImg: (data: any) => http.post(
+    'up-image',
+    data,
+    {
+      headers: {
+        'content-type': 'multipart/form-data'
+      }
+    }
+  )
 };
 
 export default api;
