@@ -6,9 +6,8 @@ const http = axios.create({
 })
 
 const api = {
-  test: http.get('test'),
   uploadImg: (data: any) => http.post(
-    'up-image',
+    'image',
     data,
     {
       headers: {
