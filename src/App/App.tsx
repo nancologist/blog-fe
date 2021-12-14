@@ -4,7 +4,7 @@ import { Route, Routes } from 'react-router-dom';
 import './App.css';
 import api from '../api';
 import { IPerson } from '../types';
-import { generateBase64FromImage } from '../utils'
+// import { generateBase64FromImage } from '../utils'
 
 import About from '../pages/About/About';
 import Header from '../components/Header/Header';
@@ -17,7 +17,6 @@ const App = () => {
   const handleFileChange = (event: ChangeEvent | DragEvent) => {
     const files = (event.target as HTMLInputElement).files! ||
       (event as DragEvent).dataTransfer!.files // dataTransfer: Drag Event
-    console.log(files[0]);
     setSelectedFile(files[0])
   }
 
@@ -29,7 +28,7 @@ const App = () => {
 
     api.uploadImg(data)
       .then(res => {
-          // console.log(res);
+          console.log(res);
       })
       .catch(err => {
         console.error(err);
