@@ -9,8 +9,6 @@ import About from '../pages/About/About';
 import Header from '../components/Header/Header';
 import Home from '../pages/Home/Home';
 
-const { REACT_APP_S3_URL } = process.env;
-
 const App = () => {
   const [selectedFile, setSelectedFile] = useState<File | undefined>(undefined);
 
@@ -65,7 +63,7 @@ const App = () => {
 
       <br /><br /><hr /><br /><br />
 
-      <img src={REACT_APP_S3_URL + 'orange.jpeg'} alt="" />
+      <img src={process.env.REACT_APP_S3_URL + 'orange.jpeg'} alt="" />
 
       <Routes>
         <Route path="/" element={<Home />} />
