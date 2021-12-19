@@ -9,6 +9,8 @@ import About from '../pages/About/About';
 import Header from '../components/Header/Header';
 import Home from '../pages/Home/Home';
 
+const { REACT_APP_S3_URL } = process.env;
+
 const App = () => {
   const [selectedFile, setSelectedFile] = useState<File | undefined>(undefined);
 
@@ -21,10 +23,17 @@ const App = () => {
   const handleSubmit = (event: SyntheticEvent) => {
     event.preventDefault()
 
-    let data = new FormData();
-    data.append('myImage', selectedFile as File)
+    const article = {
+      title: 'Angis Blog',
+      body: 'Here you will read nice things about Angis thoughts and ...'
+    }
 
-    api.uploadImg(data)
+    let data = new FormData();
+    data.append('articleImage', selectedFile as File)
+    data.append('articleTitle', article.title)
+    data.append('articleBody', article.body)
+
+    api.article.post(data)
       .then(res => {
           console.log(res);
       })
@@ -40,16 +49,23 @@ const App = () => {
       <form
         onSubmit={handleSubmit}
       >
+        
         <input
           id="fileInput"
           type="file"
           onChange={handleFileChange}
         />
         <br />
+
+        <input type="text"
+        />
+
         <button type="submit">Upload</button>
       </form>
 
       <br /><br /><hr /><br /><br />
+
+      <img src={REACT_APP_S3_URL + 'orange.jpeg'} alt="" />
 
       <Routes>
         <Route path="/" element={<Home />} />
