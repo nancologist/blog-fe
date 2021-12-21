@@ -7,7 +7,8 @@ const http = axios.create({
 
 const api = {
   article: {
-    post: (data: any) => http.post('/article', data)
+    post: (data: any) => http.post('/article', data),
+    getAll: () => http.get('/article/all')
   }
 };
 

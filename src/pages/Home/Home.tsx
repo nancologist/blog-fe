@@ -1,15 +1,21 @@
-import './Home.css'
+import './Home.css';
+import api from '../../api';
+import imgPlaceholder from '../../assets/img/placeholder.png';
 
 const s3Url = process.env.REACT_APP_S3_URL
 
 const Home = () => {
+  const logIt = () => {
+    api.article.getAll()
+  };
+
   return (
     <>
       <div className="thumbs">
 
         {articles.map(item => {
-          const titleThumb = item.title.substr(0, 10) + ' ...'
-          const bodyThumb = item.body.substr(0, 50) + ' ...'
+          const titleThumb = item.title.substr(0, 20) + ' ...'
+          const bodyThumb = item.body.substr(0, 100) + ' ...'
 
           return (
             <div className="thumb" key={item._id}>
@@ -20,7 +26,7 @@ const Home = () => {
               </div>
 
               <div className="thumb_img-wrap">
-                <img src={item.imageName ? s3Url + item.imageName : ''} alt="" />
+                <img src={item.imageName ? s3Url + item.imageName : imgPlaceholder} alt="" />
               </div>
 
             </div>
@@ -28,6 +34,7 @@ const Home = () => {
         })}
 
       </div>
+      <button onClick={logIt}>Log!</button>
     </>
   );
 }
