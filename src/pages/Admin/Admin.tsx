@@ -26,6 +26,7 @@ const Admin = () => {
     data.append('articleTitle', article.title)
     data.append('articleBody', article.body)
 
+    // TODO: Async/Await
     api.article.post(data)
       .then(res => {
           console.log(res);
