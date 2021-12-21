@@ -1,4 +1,6 @@
 import { NavLink } from 'react-router-dom';
+
+import { NavItem } from '../../types'
 import './Header.css'
 
 const Header = () => {
@@ -21,7 +23,7 @@ const Header = () => {
   );
 };
 
-const navItems = [
+const navItems: NavItem[] = [
   {
     label: 'Home',
     path: '/'
@@ -29,6 +31,10 @@ const navItems = [
   {
     label: 'About',
     path: '/about'
+  },
+  {
+    label: 'Admin',
+    path: '/admin'
   }
 ]
 
