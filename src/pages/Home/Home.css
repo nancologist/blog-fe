@@ -1,0 +1,20 @@
+.thumbs {
+  padding: 20px;
+}
+
+.thumb {
+  border: 1px solid gray;
+  display: flex;
+  padding: 10px;
+  border-radius: 5px;
+}
+
+.thumb_img-wrap {
+  height: 100px;
+  width: 100px;
+}
+
+.thumb_img-wrap img {
+  height: inherit;
+  width: inherit;
+}
