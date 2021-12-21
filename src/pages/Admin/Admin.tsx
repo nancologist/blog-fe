@@ -1,5 +1,4 @@
 import { useState, ChangeEvent, SyntheticEvent } from 'react';
-import { Route, Routes } from 'react-router-dom';
 
 import './Admin.css';
 import api from '../../api';
