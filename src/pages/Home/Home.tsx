@@ -10,16 +10,18 @@ const s3Url = process.env.REACT_APP_S3_URL
 const Home = () => {
   const [articles, setArticles] = useState<Article[]>([])
 
-  useEffect(() => {
-    api.article.getAll()
-      .then(res => {
-        setArticles(res.data)
-      })
-      .catch(err => {
-        console.error(err);
-      });
-  })
-
+  useEffect(
+    () => {
+      api.article.getAll()
+        .then(res => {
+          setArticles(res.data)
+        })
+        .catch(err => {
+          console.error(err);
+        });
+    },
+    []
+  );
 
   return (
     <>
