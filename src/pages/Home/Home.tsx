@@ -8,12 +8,14 @@ const Home = () => {
       <div className="thumbs">
 
         {articles.map(item => {
+          const titleThumb = item.title.substr(0, 10) + ' ...'
           const bodyThumb = item.body.substr(0, 50) + ' ...'
+
           return (
             <div className="thumb" key={item._id}>
 
               <div className="thumb__text">
-                <h2>{item.title}</h2>
+                <h2>{titleThumb}</h2>
                 <p>{bodyThumb}</p>
               </div>
 
@@ -46,9 +48,18 @@ const article2 = {
   tags: undefined
 }
 
+const article3 = {
+  _id: 'jkjk32ses',
+  title: 'Art2 - Östraaaaaaaaaaaauuu',
+  body: 'Gugur magure papi gole setare dare. Aperiam odit tempore architecto nisi hic dolorum maiores libero! Odio asperiores consectetur, optio dolores officia ad dolorum reprehenderit consequatur illo? Porro ex voluptas deleniti. Ex itaque fuga numquam. Tenetur dicta hic fuga, corporis officiis voluptates, rerum nostrum nulla magni asperiores aspernatur, tempore id corrupti totam deleniti? Dignissimos autem fugit optio assumenda sequi blanditiis? Est cumque assumenda corrupti veritatis sit vitae aut eaque praesentium, ipsam esse eligendi nam incidunt voluptatem natus? Recusandae, possimus temporibus libero impedit ex expedita nesciunt incidunt ducimus nobis reiciendis ipsam sint iusto minus nam voluptatum perferendis laudantium consectetur eaque beatae non qui consequuntur porro nemo harum. Sit tempore adipisci totam consequuntur dolor vero quo laborum aliquam maxime hic laudantium voluptate quae doloribus cum molestias natus, illum ullam! Minima dolore, ad iste mollitia quasi qui quos beatae dicta eius quisquam sapiente nemo aliquid nobis ipsa, nihil iusto consequatur reiciendis? Iste voluptatem dolor exercitationem, ea numquam deserunt quaerat dolorum sint provident, illum alias eligendi, placeat commodi. Rem commodi aliquam quod, totam quisquam reprehenderit aperiam accusantium eaque neque, possimus magni! Reiciendis sequi quibusdam quam at earum. Obcaecati laudantium recusandae natus, amet dolores in. Magni quam rem vero illum ad rerum cum at?',
+  imageName: undefined,
+  tags: undefined
+}
+
 const articles = [
   article1,
-  article2
+  article2,
+  article3
 ]
 
 export default Home;

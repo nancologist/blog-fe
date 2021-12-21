@@ -1,12 +1,15 @@
 .thumbs {
+  display: flex;
   padding: 20px;
 }
 
 .thumb {
   border: 1px solid gray;
-  display: flex;
-  padding: 10px;
   border-radius: 5px;
+  display: inline-flex;
+  margin: 15px;
+  padding: 10px;
+  width: 500px;
 }
 
 .thumb_img-wrap {
