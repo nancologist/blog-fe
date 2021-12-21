@@ -22,18 +22,18 @@ const Admin = () => {
     }
 
     let data = new FormData();
-    data.append('articleImage', selectedFile as File)
-    data.append('articleTitle', article.title)
-    data.append('articleBody', article.body)
+    data.append('articleImage', selectedFile as File);
+    data.append('articleTitle', article.title);
+    data.append('articleBody', article.body);
 
-    // TODO: Async/Await
-    api.article.post(data)
-      .then(res => {
-          console.log(res);
-      })
-      .catch(err => {
-        console.error(err);
-      })
+    (async () => {
+      try {
+        const res = await api.article.post(data)  
+        console.log(res);
+      } catch (err) {
+        console.error(err)
+      }
+    })()
   }
 
   return (
