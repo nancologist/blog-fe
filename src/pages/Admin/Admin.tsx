@@ -28,7 +28,8 @@ const Admin = () => {
 
     (async () => {
       try {
-        const res = await api.article.post(data)  
+        const res = await api.article.post(data);
+        // TODO: Render success msg ...
         console.log(res);
       } catch (err) {
         console.error(err)
@@ -36,19 +37,38 @@ const Admin = () => {
     })()
   }
 
+  const deleteAll = async () => {
+    try {
+      const res = await api.article.deleteAll();
+      console.log(res);
+    } catch (err) {
+      console.error(err);
+    }
+  }
+
   return (
-    <form onSubmit={handleSubmit}>
+    <>
+      <form onSubmit={handleSubmit}>
+        <div className="form-ctrl">
+          <label htmlFor="title">Titel</label>
+          <input id="title" type="text" placeholder="Type title..."/>
+        </div>
+        <div className="form-ctrl">
+          <label htmlFor="fileInput">Foto hinzufügen</label>
+          <input id="fileInput" type="file" onChange={handleFileChange} />
+        </div>
         
-    <input
-      id="fileInput"
-      type="file"
-      onChange={handleFileChange}
-    />
+        <div>Tags...</div>
 
-    <input type="text" />
+        <div className="form-ctrl">
+          <label htmlFor="body">Text</label>
+          <textarea cols={30} rows={10} id="body"></textarea>
+        </div>
+        <button type="submit">Upload</button>
+      </form>
 
-    <button type="submit">Upload</button>
-    </form>
+      <button onClick={deleteAll}>DELETE ALL ARTICLES</button>
+    </>
   );
 }
 
