@@ -94,8 +94,8 @@ const Admin = () => {
       <button onClick={deleteAll}>DELETE ALL ARTICLES</button>
 
       <Notification
-        open={actionSuccess}
-        handleClose={() => { setActionSuccess(false) }}
+        show={actionSuccess}
+        msg={'Post erfolgreich veröffentlicht!'}
       />
     </div>
   );
