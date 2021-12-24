@@ -1,0 +1,17 @@
+.Admin {
+  font-size: 1.4rem;
+}
+
+.form {
+  padding: 20px;
+  width: 500px;
+}
+
+.form-ctrl {
+  display: flex;
+  flex-direction: column;
+  margin-bottom: 40px;
+}
+.form-ctrl label {
+  margin-right: 10px;
+}

@@ -2,10 +2,26 @@ import { useState, ChangeEvent, SyntheticEvent } from 'react';
 
 import './Admin.css';
 import api from '../../api';
+import { ArticleForm } from '../../types/models'
 // import { generateBase64FromImage } from '../utils'
 
 const Admin = () => {
   const [selectedFile, setSelectedFile] = useState<File | undefined>(undefined);
+  const [article, setArticle] = useState<ArticleForm>({
+    title: '',
+    body: '',
+    tags: []
+  });
+
+  const handleChange = (
+    event: ChangeEvent<HTMLInputElement | HTMLTextAreaElement>,
+    fieldName: string
+  ) => {
+    setArticle(prev => ({
+      ...prev,
+      [fieldName]: event.target.value
+    }));
+  }
 
   const handleFileChange = (event: ChangeEvent | DragEvent) => {
     const files = (event.target as HTMLInputElement).files! ||
@@ -15,11 +31,6 @@ const Admin = () => {
 
   const handleSubmit = (event: SyntheticEvent) => {
     event.preventDefault()
-
-    const article = {
-      title: 'Angis Blog '  + Math.floor(Math.random() * 1000),
-      body: 'Here you will read nice things about Angis thoughts and ...'
-    }
 
     let data = new FormData();
     data.append('articleImage', selectedFile as File);
@@ -47,28 +58,36 @@ const Admin = () => {
   }
 
   return (
-    <>
-      <form onSubmit={handleSubmit}>
+    <div className="Admin">
+      <form onSubmit={handleSubmit} className="form">
         <div className="form-ctrl">
-          <label htmlFor="title">Titel</label>
-          <input id="title" type="text" placeholder="Type title..."/>
+          <input
+           id="title"
+           placeholder="Add title..."
+           type="text"
+           onChange={(e) => handleChange(e, 'title')}
+           value={article.title}
+          />
+        </div>
+
+        <div className="form-ctrl">
+          {/* <label htmlFor="body">Text</label> */}
+          <textarea
+            cols={30} rows={10} id="body"
+            onChange={(event) => handleChange(event, 'body')}
+            placeholder="Write message ..."
+            value={article.body}
+          ></textarea>
         </div>
         <div className="form-ctrl">
           <label htmlFor="fileInput">Foto hinzufügen</label>
           <input id="fileInput" type="file" onChange={handleFileChange} />
         </div>
-        
-        <div>Tags...</div>
-
-        <div className="form-ctrl">
-          <label htmlFor="body">Text</label>
-          <textarea cols={30} rows={10} id="body"></textarea>
-        </div>
-        <button type="submit">Upload</button>
+        <button type="submit">Create</button>
       </form>
 
       <button onClick={deleteAll}>DELETE ALL ARTICLES</button>
-    </>
+    </div>
   );
 }
 

@@ -2,6 +2,12 @@ export interface Article {
   _id: string;
   title: string;
   body: string;
-  imageName: string | undefined;
-  tags: string[] | undefined
+  imageName?: string;
+  tags?: string[];
+}
+
+export interface ArticleForm {
+  title: string;
+  body: string;
+  tags?: string[];
 }
