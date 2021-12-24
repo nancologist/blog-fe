@@ -3,10 +3,12 @@ import { useState, ChangeEvent, SyntheticEvent } from 'react';
 import './Admin.css';
 import api from '../../api';
 import { ArticleForm } from '../../types/models'
+import Notification from '../../components/Notification/Notification'
 // import { generateBase64FromImage } from '../utils'
 
 const Admin = () => {
   const [selectedFile, setSelectedFile] = useState<File | undefined>(undefined);
+  const [actionSuccess, setActionSuccess] = useState(false)
   const [article, setArticle] = useState<ArticleForm>({
     title: '',
     body: '',
@@ -32,20 +34,24 @@ const Admin = () => {
   const handleSubmit = (event: SyntheticEvent) => {
     event.preventDefault()
 
-    let data = new FormData();
-    data.append('articleImage', selectedFile as File);
-    data.append('articleTitle', article.title);
-    data.append('articleBody', article.body);
+    setActionSuccess(true)
 
-    (async () => {
-      try {
-        const res = await api.article.post(data);
-        // TODO: Render success msg ...
-        console.log(res);
-      } catch (err) {
-        console.error(err)
-      }
-    })()
+    // let data = new FormData();
+    // data.append('articleImage', selectedFile as File);
+    // data.append('articleTitle', article.title);
+    // data.append('articleBody', article.body);
+
+    // (async () => {
+    //   try {
+    //     const res = await api.article.post(data);
+    //     const success = res.data.code === 'POSTED'
+    //     if (success) {
+    //       setActionSuccess(true)
+    //     }
+    //   } catch (err) {
+    //     console.error(err)
+    //   }
+    // })()
   }
 
   const deleteAll = async () => {
@@ -82,10 +88,15 @@ const Admin = () => {
           <label htmlFor="fileInput">Foto hinzufügen</label>
           <input id="fileInput" type="file" onChange={handleFileChange} />
         </div>
-        <button type="submit">Create</button>
+        <button type="submit">POSTEN</button>
       </form>
 
       <button onClick={deleteAll}>DELETE ALL ARTICLES</button>
+
+      <Notification
+        open={actionSuccess}
+        handleClose={() => { setActionSuccess(false) }}
+      />
     </div>
   );
 }

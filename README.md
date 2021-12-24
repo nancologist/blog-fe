@@ -5,6 +5,7 @@ __Init:__
 2. Add React Router:  
     `npm install react-router-dom@6`
 3. `npm install --save axios`
+4. For Material UI: ``npm install --save @mui/material @emotion/react @emotion/styled``
 
 # Getting Started with Create React App
 
