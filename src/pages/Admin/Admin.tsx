@@ -63,15 +63,14 @@ const Admin = () => {
         <div className="form-ctrl">
           <input
            id="title"
+           onChange={(e) => handleChange(e, 'title')}
            placeholder="Add title..."
            type="text"
-           onChange={(e) => handleChange(e, 'title')}
            value={article.title}
           />
         </div>
 
         <div className="form-ctrl">
-          {/* <label htmlFor="body">Text</label> */}
           <textarea
             cols={30} rows={10} id="body"
             onChange={(event) => handleChange(event, 'body')}
