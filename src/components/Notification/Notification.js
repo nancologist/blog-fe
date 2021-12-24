@@ -27,6 +27,4 @@ let Notification = (props) => {
   );
 };
 
-// Notification = forwardRef(Notification);
-
 export default Notification
