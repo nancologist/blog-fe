@@ -6,14 +6,18 @@ import { ArticleForm } from '../../types/models'
 import Notification from '../../components/Notification/Notification'
 // import { generateBase64FromImage } from '../utils'
 
-const Admin = () => {
-  const [selectedFile, setSelectedFile] = useState<File | undefined>(undefined);
-  const [actionSuccess, setActionSuccess] = useState(false)
-  const [article, setArticle] = useState<ArticleForm>({
+const initialState = {
+  article: {
     title: '',
     body: '',
     tags: []
-  });
+  }
+};
+
+const Admin = () => {
+  const [selectedFile, setSelectedFile] = useState<File | undefined>(undefined);
+  const [actionSuccess, setActionSuccess] = useState(false)
+  const [article, setArticle] = useState<ArticleForm>(initialState.article);
 
   const handleChange = (
     event: ChangeEvent<HTMLInputElement | HTMLTextAreaElement>,
@@ -34,24 +38,23 @@ const Admin = () => {
   const handleSubmit = (event: SyntheticEvent) => {
     event.preventDefault()
 
-    setActionSuccess(true)
+    let data = new FormData();
+    data.append('articleImage', selectedFile as File);
+    data.append('articleTitle', article.title);
+    data.append('articleBody', article.body);
 
-    // let data = new FormData();
-    // data.append('articleImage', selectedFile as File);
-    // data.append('articleTitle', article.title);
-    // data.append('articleBody', article.body);
-
-    // (async () => {
-    //   try {
-    //     const res = await api.article.post(data);
-    //     const success = res.data.code === 'POSTED'
-    //     if (success) {
-    //       setActionSuccess(true)
-    //     }
-    //   } catch (err) {
-    //     console.error(err)
-    //   }
-    // })()
+    (async () => {
+      try {
+        const res = await api.article.post(data);
+        const success = res.data.code === 'POSTED'
+        if (success) {
+          setActionSuccess(true)
+          setArticle(initialState.article)
+        }
+      } catch (err) {
+        console.error(err)
+      }
+    })()
   }
 
   const deleteAll = async () => {
@@ -95,7 +98,12 @@ const Admin = () => {
 
       <Notification
         show={actionSuccess}
-        msg={'Post erfolgreich veröffentlicht!'}
+        msg={'Post erfolgreich veröffentlicht! '}
+        timeout={null}
+        link={{
+          label: 'Öffnen',
+          to: '/'
+        }}
       />
     </div>
   );
