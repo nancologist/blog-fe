@@ -1,16 +1,22 @@
-import { useEffect } from 'react';
+import { useEffect, useState } from 'react';
 import { useParams } from 'react-router';
 
 import api from '../../api';
+import { Article as IArticle } from '../../types/models';
+
+const s3Url = process.env.REACT_APP_S3_URL
 
 const Article = () => {
   const { id } = useParams()
+  const [article, setArticle] = useState<IArticle>({
+    _id: '', title: '', body: '', imageName: '', tags: []
+  })
   
   useEffect(() => {
     (async () => {
       try {
         const res = await api.article.getSingle(id!)
-        console.log(res);
+        setArticle(res.data)
       } catch (err) {
         console.error(err)
       }
@@ -18,7 +24,11 @@ const Article = () => {
   }, [id])
 
   return (
-    <h1>Hello ID ...</h1>
+    <div className="Article">
+      <h1>{article.title}</h1>
+      <p>{article.body}</p>
+      {article.imageName ? <img src={s3Url + article.imageName} alt="" /> : null}
+    </div>
   )
 };
 
