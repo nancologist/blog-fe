@@ -17,13 +17,14 @@ const initialState = {
 const Admin = () => {
   const [selectedFile, setSelectedFile] = useState<File | undefined>(undefined);
   const [actionSuccess, setActionSuccess] = useState(false)
-  const [article, setArticle] = useState<ArticleForm>(initialState.article);
+  const [form, setForm] = useState<ArticleForm>(initialState.article);
+  const [articleId, setArticleId] = useState('');
 
   const handleChange = (
     event: ChangeEvent<HTMLInputElement | HTMLTextAreaElement>,
     fieldName: string
   ) => {
-    setArticle(prev => ({
+    setForm(prev => ({
       ...prev,
       [fieldName]: event.target.value
     }));
@@ -40,8 +41,8 @@ const Admin = () => {
 
     let data = new FormData();
     data.append('articleImage', selectedFile as File);
-    data.append('articleTitle', article.title);
-    data.append('articleBody', article.body);
+    data.append('articleTitle', form.title);
+    data.append('articleBody', form.body);
 
     (async () => {
       try {
@@ -49,7 +50,8 @@ const Admin = () => {
         const success = res.data.code === 'POSTED'
         if (success) {
           setActionSuccess(true)
-          setArticle(initialState.article)
+          setForm(initialState.article)
+          setArticleId(res.data.id)
         }
       } catch (err) {
         console.error(err)
@@ -75,7 +77,7 @@ const Admin = () => {
            onChange={(e) => handleChange(e, 'title')}
            placeholder="Add title..."
            type="text"
-           value={article.title}
+           value={form.title}
           />
         </div>
 
@@ -84,7 +86,7 @@ const Admin = () => {
             cols={30} rows={10} id="body"
             onChange={(event) => handleChange(event, 'body')}
             placeholder="Write message ..."
-            value={article.body}
+            value={form.body}
           ></textarea>
         </div>
         <div className="form-ctrl">
@@ -102,7 +104,7 @@ const Admin = () => {
         timeout={null}
         link={{
           label: 'Öffnen',
-          to: '/'
+          to: '/article/' + articleId
         }}
       />
     </div>
