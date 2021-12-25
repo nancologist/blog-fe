@@ -1,5 +1,5 @@
 import { useEffect, useState } from 'react';
-import { useParams } from 'react-router';
+import { useLocation, useParams } from 'react-router';
 
 import api from '../../api';
 import { Article as IArticle } from '../../types/models';
@@ -7,7 +7,7 @@ import { Article as IArticle } from '../../types/models';
 const s3Url = process.env.REACT_APP_S3_URL
 
 const Article = () => {
-  const { id } = useParams()
+  const { id } = useLocation().state
   const [article, setArticle] = useState<IArticle>({
     _id: '', title: '', body: '', imageName: '', tags: []
   })

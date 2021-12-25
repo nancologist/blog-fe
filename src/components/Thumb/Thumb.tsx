@@ -1,4 +1,4 @@
-import { Link } from 'react-router-dom';
+import { Link, useNavigate } from 'react-router-dom';
 
 import './Thumb.css'
 import { ThumbProps as Props } from '../../types/cmp-props';
@@ -12,21 +12,24 @@ const Thumb = ({ article }: Props) => {
   const bodyThumb = body.substr(0, 100) + ' ...'
   const imgUrl = imageName ? s3Url + imageName : imgPlaceholder 
 
+  const navigate = useNavigate()
+  const goToArticle = () => {
+    navigate('/article/' + title, { state: { id: _id } })
+  };
+
   return (
-    <Link to={'/article/' + _id}>
-      <div className="thumb">
+    <div className="thumb" onClick={goToArticle}>
 
-        <div className="thumb__text">
-          <h2>{titleThumb}</h2>
-          <p>{bodyThumb}</p>
-        </div>
-
-        <div className="thumb_img-wrap">
-          <img src={imgUrl} alt="" />
-        </div>
-
+      <div className="thumb__text">
+        <h2>{titleThumb}</h2>
+        <p>{bodyThumb}</p>
       </div>
-    </Link>
+
+      <div className="thumb_img-wrap">
+        <img src={imgUrl} alt="" />
+      </div>
+
+    </div>
   )
 };
 
