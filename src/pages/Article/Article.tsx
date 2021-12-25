@@ -36,9 +36,11 @@ const Article = () => {
   return (
     // TODO: Unify all the page layouts (e.g. in a CSS class called "page")
     <div className="Article"> 
-      <h1>{article.title}</h1>
-      <span className="date">erstellt am {createdAt}</span>
-      {article.imageName ? <div className="image-wrap"><img src={s3Url + article.imageName} alt="" /></div> : null}
+      <div className="Article__header">
+        <h1>{article.title}</h1>
+        <span className="Article__header__date">erstellt am {createdAt}</span>
+      </div>
+      {article.imageName ? <div className="Article__image-wrap"><img src={s3Url + article.imageName} alt="" /></div> : null}
       <p>{article.body}</p>
     </div>
   )
