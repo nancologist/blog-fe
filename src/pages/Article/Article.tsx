@@ -1,5 +1,5 @@
 import { useEffect, useState } from 'react';
-import { useLocation } from 'react-router';
+import { useParams } from 'react-router';
 
 import './Article.css'
 import api from '../../api';
@@ -9,7 +9,7 @@ import * as utils from '../../utils';
 const s3Url = process.env.REACT_APP_S3_URL
 
 const Article = () => {
-  const { id } = useLocation().state
+  const { id } = useParams()
 
   useEffect(() => {
     (async () => {
