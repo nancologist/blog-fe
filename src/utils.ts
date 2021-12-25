@@ -14,6 +14,19 @@ export const convertToUrl = (str: string) => {
   return str
 };
 
+export const convertNumToDate: (n: number) => string = (num: number) => {
+  return new Date(num)
+    .toLocaleString(
+      'de',
+      {
+        year: 'numeric',
+        month: 'short',
+        day: 'numeric',
+        hour: '2-digit',
+        minute: '2-digit'
+    })
+}
+
 // export const generateBase64FromImage = imageFile => {
 //   const reader = new FileReader();
 //   const promise = new Promise((resolve, reject) => {
