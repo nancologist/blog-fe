@@ -1,7 +1,8 @@
-import { Link, useNavigate } from 'react-router-dom';
+import { useNavigate } from 'react-router-dom';
 
 import './Thumb.css'
 import { ThumbProps as Props } from '../../types/cmp-props';
+import * as utils from '../../utils';
 import imgPlaceholder from '../../assets/img/placeholder.png';
 
 const s3Url = process.env.REACT_APP_S3_URL
@@ -14,7 +15,10 @@ const Thumb = ({ article }: Props) => {
 
   const navigate = useNavigate()
   const goToArticle = () => {
-    navigate('/article/' + title, { state: { id: _id } })
+    navigate(
+      '/article/' + utils.convertToUrl(title),
+      { state: { id: _id } }
+    )
   };
 
   return (

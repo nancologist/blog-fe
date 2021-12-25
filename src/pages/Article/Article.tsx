@@ -1,5 +1,5 @@
 import { useEffect, useState } from 'react';
-import { useLocation, useParams } from 'react-router';
+import { useLocation } from 'react-router';
 
 import api from '../../api';
 import { Article as IArticle } from '../../types/models';
