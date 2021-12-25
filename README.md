@@ -53,3 +53,14 @@ You don’t have to ever use `eject`. The curated feature set is suitable for sm
 You can learn more in the [Create React App documentation](https://facebook.github.io/create-react-app/docs/getting-started).
 
 To learn React, check out the [React documentation](https://reactjs.org/).
+
+## Redux Toolkit (for first time)
+Official from Redux: _"edux Toolkit builds in our suggested best practices, simplifies most Redux tasks, prevents common mistakes, and makes it easier to write Redux applications."_
+
+For an existing app: `npm install @reduxjs/toolkit react-redux`
+
+__Redux Toolkit included `redux-thunk` out of box!__
+
+For typescript parts: `npm install --save @types/react-redux`
+
+(from v7.2.3 of `react-redux` , it already contains `@types/react-redux` otherwise you should manually install it: `npm install @types/react-redux`)

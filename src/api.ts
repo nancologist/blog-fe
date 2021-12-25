@@ -9,6 +9,7 @@ const api = {
   article: {
     deleteAll: () => http.delete('article/all'),
     getAll: () => http.get('/article/all'),
+    getSingle: (id: string) => http.get('article/' + id),
     post: (data: any) => http.post('/article', data),
   }
 };
