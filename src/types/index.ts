@@ -8,3 +8,8 @@ export interface NavItem {
   label: string;
   path: string;
 }
+
+export interface LoginForm {
+  email: string;
+  pwd: string;
+}

@@ -1,0 +1,12 @@
+.Login {
+  padding: 20px
+}
+
+.Login__title {
+  margin-bottom: 30px;
+}
+
+.Login__form-ctrl {
+  display: block;
+  margin-bottom: 10px;
+}

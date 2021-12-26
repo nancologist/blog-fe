@@ -1,8 +1,8 @@
 import axios from 'axios'
-const { REACT_APP_API_URL } = process.env
+import { LoginForm } from './types';
 
 const http = axios.create({
-  baseURL: REACT_APP_API_URL
+  baseURL: process.env.REACT_APP_API_URL
 })
 
 const api = {
@@ -10,7 +10,15 @@ const api = {
     deleteAll: () => http.delete('article/all'),
     getAll: () => http.get('/article/all'),
     getSingle: (id: string) => http.get('article/' + id),
-    post: (data: any) => http.post('/article', data),
+    post: (data: any, token?: string) => http.post('/article', data, { // TODO: Remove ? from token later.
+      headers: {
+        Authorization: 'Bearer ' + token
+      }
+    }),
+  },
+
+  auth: {
+    login: (data: LoginForm) => http.post('/auth/s1gn1n', data)
   }
 };
 
