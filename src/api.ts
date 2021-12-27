@@ -10,7 +10,7 @@ const api = {
     deleteAll: () => http.delete('article/all'),
     getAll: () => http.get('/article/all'),
     getSingle: (id: string) => http.get('article/' + id),
-    post: (data: any, token?: string) => http.post('/article', data, { // TODO: Remove ? from token later.
+    post: (data: any, token: string) => http.post('/article', data, {
       headers: {
         Authorization: 'Bearer ' + token
       }

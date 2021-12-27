@@ -19,7 +19,7 @@ const Login = () => {
 
     try {
       const res = await api.auth.login(form);
-      console.log(res);
+      localStorage.setItem('authToken', res.data.token);
     } catch (err: any) {
       console.error(err);
     }

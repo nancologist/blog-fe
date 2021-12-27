@@ -46,7 +46,8 @@ const Admin = () => {
 
     (async () => {
       try {
-        const res = await api.article.post(data);
+        const authToken = localStorage.getItem('authToken') as string;
+        const res = await api.article.post(data, authToken);
         const success = res.data.code === 'POSTED'
         if (success) {
           setActionSuccess(true)
