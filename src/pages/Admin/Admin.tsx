@@ -16,9 +16,18 @@ const initialState = {
 
 const Admin = () => {
   const [selectedFile, setSelectedFile] = useState<File | undefined>(undefined);
-  const [actionSuccess, setActionSuccess] = useState(false)
   const [form, setForm] = useState<ArticleForm>(initialState.article);
   const [articleId, setArticleId] = useState('');
+  const [notification, setNotification] = useState({
+    show: false,
+    msg: '',
+    severity: '',
+    timeout: null,
+    link: {
+      label: '',
+      to: ''
+    }
+  });
 
   const handleChange = (
     event: ChangeEvent<HTMLInputElement | HTMLTextAreaElement>,
@@ -47,12 +56,39 @@ const Admin = () => {
     (async () => {
       try {
         const authToken = localStorage.getItem('authToken') as string;
+        if (!authToken) {
+          setNotification(prev => ({
+            ...prev,
+            show: true,
+            severity: 'warning',
+            msg: 'Du musst dich erneut einloggen! ',
+            link: {
+              label: 'Anmelden',
+              to: '/l0g1n'
+            }
+          }))
+
+          // TODO: IF (authToken is expired) { ... }
+
+          return;
+        }
+
         const res = await api.article.post(data, authToken);
         const success = res.data.code === 'POSTED'
         if (success) {
-          setActionSuccess(true)
           setForm(initialState.article)
           setArticleId(res.data.id)
+
+          setNotification(prev => ({
+            ...prev,
+            show: true,
+            severity: 'success',
+            msg: 'Post erfolgreich veröffentlicht! ',
+            link: {
+              label: 'Öffnen',
+              to: '/article/' + articleId
+            }
+          }));
         }
       } catch (err) {
         console.error(err)
@@ -100,13 +136,11 @@ const Admin = () => {
       <button onClick={deleteAll}>DELETE ALL ARTICLES</button>
 
       <Notification
-        show={actionSuccess}
-        msg={'Post erfolgreich veröffentlicht! '}
-        timeout={null}
-        link={{
-          label: 'Öffnen',
-          to: '/article/' + articleId
-        }}
+        show={notification.show}
+        msg={notification.msg}
+        timeout={notification.timeout}
+        severity={notification.severity}
+        link={notification.link}
       />
     </div>
   );

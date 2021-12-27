@@ -23,7 +23,7 @@ let Notification = (props) => {
 
   return (
     <Snackbar open={open} autoHideDuration={props.timeout} onClose={handleClose}>
-      <Alert onClose={handleClose} severity="success" sx={{ width: '100%' }}>
+      <Alert onClose={handleClose} severity={props.severity} sx={{ width: '100%' }}>
         {props.msg}
         {props.link ? <Link to={props.link.to} >{props.link.label}</Link> : null}
       </Alert>

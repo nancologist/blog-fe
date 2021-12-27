@@ -2,11 +2,13 @@ import api from '../../api';
 import './Login.css';
 import { LoginForm } from '../../types';
 import { ChangeEvent, SyntheticEvent, useState } from 'react';
+import { useNavigate } from 'react-router';
 
 const Login = () => {
   const [form, setForm] = useState<LoginForm>({ email: '', pwd: '' });
   const [pwdShow, setPwdShow] = useState(false);
-  
+  const navigate = useNavigate();
+
   const handleChange = (event: ChangeEvent<HTMLInputElement>, field: 'email' | 'pwd') => {
     setForm(prev => ({
       ...prev,
@@ -14,21 +16,24 @@ const Login = () => {
     }));
   };
 
-  const login = async (event: SyntheticEvent) => {
+  const logIn = async (event: SyntheticEvent) => {
     event.preventDefault();
 
     try {
       const res = await api.auth.login(form);
       localStorage.setItem('authToken', res.data.token);
+      localStorage.setItem('expireAt', (Date.now() + 3600).toString());
+      navigate('/', { replace: true })
     } catch (err: any) {
       console.error(err);
+      alert('Falsche Logindaten.')
     }
   };
 
   return (
     <div className="Login">
       <h2 className="Login__title">Anmelden</h2>
-      <form onSubmit={login}>
+      <form onSubmit={logIn}>
         <div className="Login__form-ctrl">
           <input
             type="email"
