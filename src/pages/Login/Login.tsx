@@ -4,6 +4,8 @@ import { LoginForm } from '../../types';
 import { ChangeEvent, SyntheticEvent, useState } from 'react';
 import { useNavigate } from 'react-router';
 
+const ONE_HOUR = 3600 * 1000;
+
 const Login = () => {
   const [form, setForm] = useState<LoginForm>({ email: '', pwd: '' });
   const [pwdShow, setPwdShow] = useState(false);
@@ -22,7 +24,7 @@ const Login = () => {
     try {
       const res = await api.auth.login(form);
       localStorage.setItem('authToken', res.data.token);
-      localStorage.setItem('expireAt', (Date.now() + 3600).toString());
+      localStorage.setItem('expireAt', (Date.now() + ONE_HOUR).toString());
       navigate('/', { replace: true })
     } catch (err: any) {
       console.error(err);

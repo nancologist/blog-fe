@@ -17,7 +17,6 @@ const initialState = {
 const Admin = () => {
   const [selectedFile, setSelectedFile] = useState<File | undefined>(undefined);
   const [form, setForm] = useState<ArticleForm>(initialState.article);
-  const [articleId, setArticleId] = useState('');
   const [notification, setNotification] = useState({
     show: false,
     msg: '',
@@ -76,7 +75,7 @@ const Admin = () => {
       const success = res.data.code === 'POSTED'
       if (success) {
         setForm(initialState.article)
-        setArticleId(res.data.id)
+        const articleId = res.data.id;
 
         setNotification(prev => ({
           ...prev,
