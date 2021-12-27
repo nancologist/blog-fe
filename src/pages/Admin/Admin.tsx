@@ -45,7 +45,7 @@ const Admin = () => {
     setSelectedFile(files[0])
   }
 
-  const handleSubmit = (event: SyntheticEvent) => {
+  const handleSubmit = async (event: SyntheticEvent) => {
     event.preventDefault()
 
     let data = new FormData();
@@ -53,47 +53,45 @@ const Admin = () => {
     data.append('articleTitle', form.title);
     data.append('articleBody', form.body);
 
-    (async () => {
-      try {
-        const authToken = localStorage.getItem('authToken') as string;
-        const tokenExpiresAt = localStorage.getItem('expireAt') as string;
-        const tokenExpired = +tokenExpiresAt < Date.now()
-        if (!authToken || tokenExpired) {
-          setNotification(prev => ({
-            ...prev,
-            show: true,
-            severity: 'warning',
-            msg: 'Du musst dich erneut einloggen! ',
-            link: {
-              label: 'Anmelden',
-              to: '/l0g1n'
-            }
-          }))
+    try {
+      const authToken = localStorage.getItem('authToken') as string;
+      const tokenExpiresAt = localStorage.getItem('expireAt') as string;
+      const tokenExpired = +tokenExpiresAt < Date.now()
+      if (!authToken || tokenExpired) {
+        setNotification(prev => ({
+          ...prev,
+          show: true,
+          severity: 'warning',
+          msg: 'Du musst dich erneut einloggen! ',
+          link: {
+            label: 'Anmelden',
+            to: '/l0g1n'
+          }
+        }))
 
-          return;
-        }
-
-        const res = await api.article.post(data, authToken);
-        const success = res.data.code === 'POSTED'
-        if (success) {
-          setForm(initialState.article)
-          setArticleId(res.data.id)
-
-          setNotification(prev => ({
-            ...prev,
-            show: true,
-            severity: 'success',
-            msg: 'Post erfolgreich veröffentlicht! ',
-            link: {
-              label: 'Öffnen',
-              to: '/article/' + articleId
-            }
-          }));
-        }
-      } catch (err) {
-        console.error(err)
+        return;
       }
-    })()
+
+      const res = await api.article.post(data, authToken);
+      const success = res.data.code === 'POSTED'
+      if (success) {
+        setForm(initialState.article)
+        setArticleId(res.data.id)
+
+        setNotification(prev => ({
+          ...prev,
+          show: true,
+          severity: 'success',
+          msg: 'Post erfolgreich veröffentlicht! ',
+          link: {
+            label: 'Öffnen',
+            to: '/article/' + articleId
+          }
+        }));
+      }
+    } catch (err) {
+      console.error(err)
+    }
   }
 
   const deleteAll = async () => {
