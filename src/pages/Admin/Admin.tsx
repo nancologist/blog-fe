@@ -56,7 +56,9 @@ const Admin = () => {
     (async () => {
       try {
         const authToken = localStorage.getItem('authToken') as string;
-        if (!authToken) {
+        const tokenExpiresAt = localStorage.getItem('expireAt') as string;
+        const tokenExpired = +tokenExpiresAt < Date.now()
+        if (!authToken || tokenExpired) {
           setNotification(prev => ({
             ...prev,
             show: true,
@@ -67,8 +69,6 @@ const Admin = () => {
               to: '/l0g1n'
             }
           }))
-
-          // TODO: IF (authToken is expired) { ... }
 
           return;
         }
