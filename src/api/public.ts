@@ -7,7 +7,6 @@ const http = axios.create({
 
 const api = {
   article: {
-    deleteAll: () => http.delete('article/all'), // TODO: Remove before MVP release
     getAll: () => http.get('/article/all'),
     getSingle: (id: string) => http.get('article/' + id)
   },
