@@ -1,4 +1,4 @@
-import api from '../../api';
+import api from '../../api/public';
 import './Login.css';
 import { LoginForm } from '../../types';
 import { ChangeEvent, SyntheticEvent, useState } from 'react';
@@ -26,10 +26,13 @@ const Login = () => {
 
     try {
       const res = await api.auth.login(form);
-      localStorage.setItem('authToken', res.data.token);
-      localStorage.setItem('expireAt', (Date.now() + ONE_HOUR).toString());
-      dispatch({ type: authAccept.type })
-      navigate('/admin', { replace: true })
+      if (res.data.code === 'SIGNED_IN') {
+        localStorage.removeItem('authToken');
+        localStorage.setItem('authToken', res.data.token);
+        localStorage.setItem('expireAt', (Date.now() + ONE_HOUR).toString());
+        dispatch({ type: authAccept.type })
+        navigate('/admin', { replace: true })
+      }
     } catch (err: any) {
       console.error(err);
       alert('Falsche Logindaten.')

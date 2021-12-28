@@ -1,7 +1,8 @@
 import { useState, ChangeEvent, SyntheticEvent } from 'react';
 
 import './Admin.css';
-import api from '../../api';
+import api from '../../api/private';
+import publicApi from '../../api/public';
 import { ArticleForm } from '../../types/models'
 import Notification from '../../components/Notification/Notification'
 // import { generateBase64FromImage } from '../utils'
@@ -13,6 +14,8 @@ const initialState = {
     tags: []
   }
 };
+
+// FIXME: Post 2 articles back to back, the 2nd one won't get a green notificataion!
 
 const Admin = () => {
   const [selectedFile, setSelectedFile] = useState<File | undefined>(undefined);
@@ -71,7 +74,7 @@ const Admin = () => {
         return;
       }
 
-      const res = await api.article.post(data, authToken);
+      const res = await api.article.post(data);
       const success = res.data.code === 'POSTED'
       if (success) {
         setForm(initialState.article)
@@ -95,7 +98,7 @@ const Admin = () => {
 
   const deleteAll = async () => {
     try {
-      const res = await api.article.deleteAll();
+      const res = await publicApi.article.deleteAll();
       console.log(res);
     } catch (err) {
       console.error(err);
@@ -104,6 +107,7 @@ const Admin = () => {
 
   return (
     <div className="Admin">
+      <h2>Erstelle einen neuen Beitrag</h2>
       <form onSubmit={handleSubmit} className="form">
         <div className="form-ctrl">
           <input

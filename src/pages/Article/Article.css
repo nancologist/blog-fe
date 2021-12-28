@@ -3,10 +3,17 @@
 }
 
 .Article__header {
+  display: flex;
+  justify-content: space-between;
   margin-bottom: 20px;
 }
 
-.Article__header__date {
+.Article__header__ctrl button {
+  display: block;
+  width: 100px;
+}
+
+.Article__header__title__date {
   color: gray;
   display: block;
   font-size: 0.8rem;

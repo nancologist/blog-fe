@@ -1,5 +1,4 @@
-import { createAction, createReducer, createAsyncThunk } from "@reduxjs/toolkit";
-import api from '../api';
+import { createAction, createReducer } from "@reduxjs/toolkit";
 
 // STATE:
 interface AuthState {
@@ -23,7 +22,7 @@ export const reject = createAction('auth/reject');
 // )
 
 // REDUCER:
-const authReducer = createReducer({ isAuth: false }, (builder) => {
+const authReducer = createReducer(initialState, (builder) => {
   builder
     .addCase(accept.type, (state, action) => {
       state.isAuth = true

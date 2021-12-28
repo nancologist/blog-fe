@@ -1,7 +1,7 @@
 import { useEffect, useState } from 'react';
 
 import './Home.css';
-import api from '../../api';
+import api from '../../api/public';
 import { Article } from '../../types/models';
 import Thumb from '../../components/Thumb/Thumb';
 

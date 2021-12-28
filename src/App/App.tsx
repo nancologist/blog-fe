@@ -1,10 +1,10 @@
-import { useEffect, useState } from 'react';
+import { useEffect } from 'react';
 import { Route, Routes } from 'react-router-dom';
 
 import './App.css';
 import { useAppSelector, useAppDispatch } from '../store/hooks';
 import { RootState } from '../store';
-import api from '../api';
+import api from '../api/private';
 import { accept as authAccept, reject as authReject } from '../store/reducer';
 
 import About from '../pages/About/About';
@@ -20,10 +20,8 @@ const App = () => {
   const dispatch = useAppDispatch();
 
   useEffect(() => {
-    const token = localStorage.getItem('authToken');
-    
     (async () => {
-      const res = await api.auth.checkToken(token!);
+      const res = await api.auth.checkToken();
 
       if (res.data.code === 'TOKEN_VERIFIED') {
         dispatch({ type: authAccept.type });
@@ -31,7 +29,7 @@ const App = () => {
         dispatch({ type: authReject.type });
       }
     })();
-  }, []);
+  }, [dispatch]);
 
   return (
     <div className="App">
