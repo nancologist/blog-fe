@@ -23,7 +23,14 @@ const api = {
 
   auth: {
     login: (data: LoginForm) => http.post('/auth/s1gn1n', data),
-    checkToken: () => http.get('/check-token', {})
+    checkToken: (token: string) => http.get(
+      '/auth/check-token',
+      {
+        headers: {
+          Authorization: 'Bearer ' + token
+        }
+      }
+    )
   }
 };
 

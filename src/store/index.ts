@@ -22,6 +22,6 @@ Interesting about Redux Toolkit:
 
 * You may don't need explicit definining const initialState = {}, because alternatively you can use reducer.getInitialState()
 
-* To log the "state" inside a reducer use current(state) [ import { current} from 'redux' / 'redux-toolkit'; ]
+* To log the "state" inside a reducer use current(state) [ import { current} from 'redux-toolkit'; ]
 
 */

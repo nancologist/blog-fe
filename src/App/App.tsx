@@ -2,8 +2,10 @@ import { useEffect, useState } from 'react';
 import { Route, Routes } from 'react-router-dom';
 
 import './App.css';
-import { useAppSelector } from '../store/hooks';
+import { useAppSelector, useAppDispatch } from '../store/hooks';
 import { RootState } from '../store';
+import api from '../api';
+import { accept as authAccept, reject as authReject } from '../store/reducer';
 
 import About from '../pages/About/About';
 import Header from '../components/Header/Header';
@@ -15,6 +17,21 @@ import NotFound from '../pages/NotFound/NotFound';
 
 const App = () => {
   const isAuth = useAppSelector((state: RootState) => state.isAuth);
+  const dispatch = useAppDispatch();
+
+  useEffect(() => {
+    const token = localStorage.getItem('authToken');
+    
+    (async () => {
+      const res = await api.auth.checkToken(token!);
+
+      if (res.data.code === 'TOKEN_VERIFIED') {
+        dispatch({ type: authAccept.type });
+      } else {
+        dispatch({ type: authReject.type });
+      }
+    })();
+  }, []);
 
   return (
     <div className="App">
