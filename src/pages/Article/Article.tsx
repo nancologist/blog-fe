@@ -45,7 +45,7 @@ const Article = () => {
 
     try {
       const res = await privateApi.article.delete(id!)
-      if (res.data.code === 'ARTICLE_DELETED') {
+      if (res.data.code[0] === 'ARTICLE_DELETED') {
         navigate('/', { replace: true });
       }
     } catch (err) {

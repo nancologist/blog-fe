@@ -77,6 +77,7 @@ const Admin = () => {
       const success = res.data.code === 'POSTED'
       if (success) {
         setForm(initialState.article)
+        // TODO: clear also file input!
         const articleId = res.data.id;
 
         setNotification(prev => ({
