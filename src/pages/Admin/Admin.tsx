@@ -1,9 +1,12 @@
-import { useState, ChangeEvent, SyntheticEvent } from 'react';
+import { useState, ChangeEvent, SyntheticEvent, useEffect } from 'react';
 
 import './Admin.css';
 import api from '../../api/private';
 import { ArticleForm } from '../../types/models'
 import Notification from '../../components/Notification/Notification'
+import { useLocation } from 'react-router';
+import { useAppSelector, useAppDispatch } from '../../store/hooks';
+import * as actions from '../../store/reducer'
 // import { generateBase64FromImage } from '../utils'
 
 const initialState = {
@@ -29,6 +32,20 @@ const Admin = () => {
       to: ''
     }
   });
+
+  const isEditing = useAppSelector(state => state.isEditing);
+  const storedArticle = useAppSelector(state => state.article);
+  const dispatch = useAppDispatch()
+
+  useEffect(() => {
+    if (isEditing) {
+      setForm({
+        title: storedArticle.title,
+        body: storedArticle.body,
+        tags: storedArticle.tags
+      })
+    }
+  }, []);
 
   const handleChange = (
     event: ChangeEvent<HTMLInputElement | HTMLTextAreaElement>,
@@ -63,7 +80,7 @@ const Admin = () => {
           ...prev,
           show: true,
           severity: 'warning',
-          msg: 'Du musst dich erneut einloggen! ',
+          msg: 'Du musst dich erneut einloggen! (Speichere den Text!) ',
           link: {
             label: 'Anmelden',
             to: '/l0g1n'
@@ -73,12 +90,27 @@ const Admin = () => {
         return;
       }
 
-      const res = await api.article.post(data);
-      const success = res.data.code === 'POSTED'
+      let res;
+      let success = false;
+      if (!isEditing) {
+        res = await api.article.post(data);
+        success = res.data.code === 'POSTED';
+      } else {
+        res = await api.article.put({
+          article: {
+            ...storedArticle,
+            title: form.title,
+            body: form.body
+          }
+        });
+        console.log(res);
+        success = res.data.code === 'UPDATED';
+      }
+
       if (success) {
         setForm(initialState.article)
         // TODO: clear also file input!
-        const articleId = res.data.id;
+        const articleId = res?.data.id;
 
         setNotification(prev => ({
           ...prev,

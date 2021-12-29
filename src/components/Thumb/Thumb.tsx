@@ -8,8 +8,8 @@ const s3Url = process.env.REACT_APP_S3_URL
 
 const Thumb = ({ article }: Props) => {
   const { _id, title, body, imageName } = article
-  const titleThumb = title.substr(0, 20) + ' ...'
-  const bodyThumb = body.substr(0, 100) + ' ...'
+  const titleThumb = title?.substr(0, 20) + ' ...'
+  const bodyThumb = body?.substr(0, 100) + ' ...'
   const imgUrl = imageName ? s3Url + imageName : imgPlaceholder 
 
   return (

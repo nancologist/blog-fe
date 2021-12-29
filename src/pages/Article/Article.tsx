@@ -6,7 +6,8 @@ import api from '../../api/public';
 import privateApi from '../../api/private';
 import { Article as IArticle } from '../../types/models';
 import * as utils from '../../utils';
-import { useAppSelector } from '../../store/hooks';
+import { useAppSelector, useAppDispatch } from '../../store/hooks';
+import * as actions from '../../store/reducer';
 
 const s3Url = process.env.REACT_APP_S3_URL
 
@@ -14,12 +15,14 @@ const Article = () => {
   const { id } = useParams();
   const isAuth = useAppSelector(state => state.isAuth);
   const navigate = useNavigate();
+  const dispatch = useAppDispatch();
 
   useEffect(() => {
     (async () => {
       try {
         const res = await api.article.getSingle(id!)
-      setArticle(res.data)
+        setArticle(res.data as IArticle);
+        dispatch(actions.storeArticle(res.data as IArticle));
       } catch (err) {
         console.error(err)
       }
@@ -37,7 +40,10 @@ const Article = () => {
   
   const createdAt = utils.convertNumToDate(article.createdAt);
 
-  const handleEdit = () => {};
+  const handleEdit = () => {
+    dispatch(actions.isEditing(true));
+    navigate('/admin');
+  };
 
   const handleDelete = async () => {
     const confirmed = window.confirm('Der Beitrag wird permanent gelöscht. Bist du dir sicher?!')
