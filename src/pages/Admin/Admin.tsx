@@ -4,9 +4,7 @@ import './Admin.css';
 import api from '../../api/private';
 import { ArticleForm } from '../../types/models'
 import Notification from '../../components/Notification/Notification'
-import { useLocation } from 'react-router';
-import { useAppSelector, useAppDispatch } from '../../store/hooks';
-import * as actions from '../../store/reducer'
+import { useAppSelector } from '../../store/hooks';
 // import { generateBase64FromImage } from '../utils'
 
 const initialState = {
@@ -35,17 +33,25 @@ const Admin = () => {
 
   const isEditing = useAppSelector(state => state.isEditing);
   const storedArticle = useAppSelector(state => state.article);
-  const dispatch = useAppDispatch()
 
-  useEffect(() => {
-    if (isEditing) {
-      setForm({
-        title: storedArticle.title,
-        body: storedArticle.body,
-        tags: storedArticle.tags
-      })
-    }
-  }, []);
+  useEffect(
+    () => {
+      if (isEditing) {
+        setForm({
+          title: storedArticle.title,
+          body: storedArticle.body,
+          tags: storedArticle.tags
+        })
+      }
+    },
+    
+    [
+      isEditing,
+      storedArticle.title,
+      storedArticle.body,
+      storedArticle.tags
+    ]
+  );
 
   const handleChange = (
     event: ChangeEvent<HTMLInputElement | HTMLTextAreaElement>,

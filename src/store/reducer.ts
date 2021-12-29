@@ -1,4 +1,4 @@
-import { createAction, createReducer, current } from "@reduxjs/toolkit";
+import { createAction, createReducer } from "@reduxjs/toolkit";
 import { Article } from "../types/models";
 
 // STATE:

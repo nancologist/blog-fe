@@ -27,7 +27,7 @@ const Article = () => {
         console.error(err)
       }
     })();
-  }, [id]);
+  }, [id, dispatch]);
 
   const [article, setArticle] = useState<IArticle>({
     _id: '',
