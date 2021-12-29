@@ -1,11 +1,11 @@
 import axios from 'axios'
 
-const TOKEN = localStorage.getItem('authToken')
+const getToken = () => localStorage.getItem('authToken')
 
 const http = axios.create({
   baseURL: process.env.REACT_APP_API_URL,
   headers: {
-    Authorization: 'Bearer ' + TOKEN
+    Authorization: 'Bearer ' + getToken()
   }
 })
 
