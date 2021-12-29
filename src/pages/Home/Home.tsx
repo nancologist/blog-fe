@@ -32,7 +32,7 @@ const Home = () => {
       <div className="thumbs">
 
         {
-          articlesEmpty ? <p>No blog available</p> :
+          articlesEmpty ? <p>kein Beitrag verfügbar</p> :
           articles.length === 0 ? <p>Loading...</p> :
           articles.map(item => <Thumb article={item} key={item._id} />)
         }

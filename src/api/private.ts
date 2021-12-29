@@ -1,11 +1,17 @@
 import axios from 'axios'
 
-const getToken = () => localStorage.getItem('authToken')
-
 const http = axios.create({
   baseURL: process.env.REACT_APP_API_URL,
-  headers: {
-    Authorization: 'Bearer ' + getToken()
+})
+
+http.interceptors.request.use((config) => {
+  const token = localStorage.getItem('authToken')
+
+  return {
+    ...config,
+    headers: {
+      Authorization: 'Bearer ' + token
+    }
   }
 })
 
