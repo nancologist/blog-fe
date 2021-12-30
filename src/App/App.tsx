@@ -5,7 +5,7 @@ import './App.css';
 import { useAppSelector, useAppDispatch } from '../store/hooks';
 import { RootState } from '../store';
 import api from '../api/private';
-import { accept as authAccept, reject as authReject } from '../store/reducer';
+import * as authActions from '../store/auth/actions';
 
 import About from '../pages/About/About';
 import Header from '../components/Header/Header';
@@ -16,18 +16,15 @@ import Login from '../pages/Login/Login';
 import NotFound from '../pages/NotFound/NotFound';
 
 const App = () => {
-  const isAuth = useAppSelector((state: RootState) => state.isAuth);
+  const isAuth = useAppSelector((state: RootState) => state.auth.verified);
   const dispatch = useAppDispatch();
 
   useEffect(() => {
     (async () => {
       const res = await api.auth.checkToken();
 
-      if (res.data.code === 'TOKEN_VERIFIED') {
-        dispatch({ type: authAccept.type });
-      } else {
-        dispatch({ type: authReject.type });
-      }
+      const verified = res.data.code === 'TOKEN_VERIFIED';
+      dispatch(authActions.setVerified(verified));
     })();
   }, [dispatch]);
 
@@ -40,6 +37,8 @@ const App = () => {
         <Route path="/" element={<Home />} />
         <Route path="/about" element={<About />} />
         <Route path="/admin" element={isAuth ? <Admin /> : <NotFound />} />
+        
+        {/* FIXME: If id is not valid send it to NotFound  */}
         <Route path="/article/:id" element={<Article />} />
         <Route path="/l0g1n" element={<Login />} />
         <Route path="*" element={<NotFound />} />

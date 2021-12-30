@@ -31,8 +31,8 @@ const Admin = () => {
     }
   });
 
-  const isEditing = useAppSelector(state => state.isEditing);
-  const storedArticle = useAppSelector(state => state.article);
+  const isEditing = useAppSelector(state => state.article.isEditing);
+  const storedArticle = useAppSelector(state => state.article.instance);
 
   useEffect(
     () => {

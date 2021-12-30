@@ -4,7 +4,7 @@ import { LoginForm } from '../../types';
 import { ChangeEvent, SyntheticEvent, useState } from 'react';
 import { useNavigate } from 'react-router';
 import { useAppDispatch } from '../../store/hooks';
-import { accept as authAccept } from '../../store/reducer'
+import * as authActions from '../../store/auth/actions';
 
 const ONE_HOUR = 3600 * 1000;
 
@@ -30,8 +30,8 @@ const Login = () => {
         localStorage.removeItem('authToken');
         localStorage.setItem('authToken', res.data.token);
         localStorage.setItem('expireAt', (Date.now() + ONE_HOUR).toString());
-        dispatch({ type: authAccept.type })
-        navigate('/admin', { replace: true })
+        dispatch(authActions.setVerified(true));
+        navigate('/admin', { replace: true });
       }
     } catch (err: any) {
       console.error(err);

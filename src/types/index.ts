@@ -1,3 +1,5 @@
+import { Article } from './models';
+
 export interface Person {
   name: String;
   age: Number;
@@ -12,4 +14,16 @@ export interface NavItem {
 export interface LoginForm {
   email: string;
   pwd: string;
+}
+
+
+// Redux States: ================================================
+
+export interface ArticleState {
+  instance: Article;
+  isEditing: boolean;
+}
+
+export interface AuthState {
+  verified: boolean;
 }

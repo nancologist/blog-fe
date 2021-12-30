@@ -7,13 +7,13 @@ import privateApi from '../../api/private';
 import { Article as IArticle } from '../../types/models';
 import * as utils from '../../utils';
 import { useAppSelector, useAppDispatch } from '../../store/hooks';
-import * as actions from '../../store/reducer';
+import * as articleActions from '../../store/article/actions';
 
 const s3Url = process.env.REACT_APP_S3_URL
 
 const Article = () => {
   const { id } = useParams();
-  const isAuth = useAppSelector(state => state.isAuth);
+  const isAuth = useAppSelector(state => state.auth.verified);
   const navigate = useNavigate();
   const dispatch = useAppDispatch();
 
@@ -22,7 +22,7 @@ const Article = () => {
       try {
         const res = await api.article.getSingle(id!)
         setArticle(res.data as IArticle);
-        dispatch(actions.storeArticle(res.data as IArticle));
+        dispatch(articleActions.store(res.data as IArticle));
       } catch (err) {
         console.error(err)
       }
@@ -41,7 +41,7 @@ const Article = () => {
   const createdAt = utils.convertNumToDate(article.createdAt);
 
   const handleEdit = () => {
-    dispatch(actions.isEditing(true));
+    dispatch(articleActions.isEditing(true));
     navigate('/admin');
   };
 

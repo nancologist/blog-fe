@@ -6,7 +6,7 @@ import { NavItem } from '../../types'
 import './Header.css'
 
 const Header = () => {
-  const isAuth = useAppSelector((state: RootState) => state.isAuth);
+  const isAuth = useAppSelector((state: RootState) => state.auth.verified);
 
   return (
     <header>
