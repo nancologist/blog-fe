@@ -5,7 +5,8 @@ import api from '../../api/private';
 import { ArticleForm } from '../../types/models'
 import Notification from '../../components/Notification/Notification'
 import { useAppSelector } from '../../store/hooks';
-// import { generateBase64FromImage } from '../utils'
+import imgPlaceholder from '../../assets/img/placeholder.png';
+import { generateBase64 } from '../../utils'
 
 const initialState = {
   article: {
@@ -33,6 +34,7 @@ const Admin = () => {
       to: ''
     }
   });
+  const [imgPreview, setImgPreview] = useState(imgPlaceholder)
 
   // =============================================================
   // Redux: ======================================================
@@ -71,13 +73,23 @@ const Admin = () => {
       [fieldName]: event.target.value
     }));
   }
-  const handleFileChange = (event: ChangeEvent | DragEvent) => {
+  const handleFileChange = async (event: ChangeEvent | DragEvent) => {
     const files = 
       (event.target as HTMLInputElement).files! ||
       (event as DragEvent).dataTransfer!.files; // dataTransfer: Drag Event
 
+    const canceled = files.length === 0
+    if (canceled) return;
+
     const file = files[0]
     setSelectedFile(file)
+
+    try {
+      const base64Img = await generateBase64(file)
+      setImgPreview(base64Img as string)
+    } catch (err) {
+      console.error(err);
+    }
   }
   const handleSubmit = async (event: SyntheticEvent) => {
     event.preventDefault()
@@ -171,8 +183,13 @@ const Admin = () => {
             value={form.body}
           ></textarea>
         </div>
-        <div className="form-ctrl">
+
+        {/* IMAGE INPUT */}
+        <div className="form-ctrl img">
           <label htmlFor="fileInput">Foto hinzufügen</label>
+          <div className="form__img-preview">
+            <img src={imgPreview} alt="" />
+          </div>
           <input
             ref={fileInput}
             id="fileInput"
@@ -181,6 +198,7 @@ const Admin = () => {
             onChange={handleFileChange}
           />
         </div>
+
         <button type="submit">POSTEN</button>
       </form>
 

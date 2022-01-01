@@ -27,13 +27,13 @@ export const convertNumToDate: (n: number) => string = (num: number) => {
     })
 }
 
-// export const generateBase64FromImage = imageFile => {
-//   const reader = new FileReader();
-//   const promise = new Promise((resolve, reject) => {
-//     reader.onload = e => resolve(e.target.result);
-//     reader.onerror = err => reject(err);
-//   });
+export const generateBase64 = (imageFile: File) => {
+  const fileReader = new FileReader();
+  const promise = new Promise((resolve, reject) => {
+    fileReader.onload = (e: Event) => resolve(fileReader.result);
+    fileReader.onerror = err => reject(err);
+  });
 
-//   reader.readAsDataURL(imageFile);
-//   return promise;
-// };
+  fileReader.readAsDataURL(imageFile);
+  return promise;
+};

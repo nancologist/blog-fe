@@ -14,5 +14,15 @@
   margin-bottom: 20px;
 }
 .form-ctrl label {
-  margin-right: 10px;
+  margin-right: 5px;
+}
+
+.form-ctrl.img {
+  margin: 30px 0;
+}
+.form__img-preview {
+  margin-top: 5px;
+}
+.form__img-preview img {
+  width: 300px;
 }
