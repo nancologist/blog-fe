@@ -1,4 +1,4 @@
-import { useState, ChangeEvent, SyntheticEvent, useEffect } from 'react';
+import { useState, ChangeEvent, SyntheticEvent, useEffect, useRef } from 'react';
 
 import './Admin.css';
 import api from '../../api/private';
@@ -18,8 +18,10 @@ const initialState = {
 // FIXME: Post 2 articles back to back, the 2nd one won't get a green notificataion!
 
 const Admin = () => {
+  // States:
   const [selectedFile, setSelectedFile] = useState<File | undefined>(undefined);
   const [form, setForm] = useState<ArticleForm>(initialState.article);
+  const [fileInputVal, setFileInputVal] = useState('')
   const [notification, setNotification] = useState({
     show: false,
     msg: '',
@@ -31,6 +33,7 @@ const Admin = () => {
     }
   });
 
+  // Redux:
   const isEditing = useAppSelector(state => state.article.isEditing);
   const storedArticle = useAppSelector(state => state.article.instance);
 
@@ -53,6 +56,7 @@ const Admin = () => {
     ]
   );
 
+  // Methods:
   const handleChange = (
     event: ChangeEvent<HTMLInputElement | HTMLTextAreaElement>,
     fieldName: string
@@ -62,13 +66,14 @@ const Admin = () => {
       [fieldName]: event.target.value
     }));
   }
-
   const handleFileChange = (event: ChangeEvent | DragEvent) => {
-    const files = (event.target as HTMLInputElement).files! ||
-      (event as DragEvent).dataTransfer!.files // dataTransfer: Drag Event
+    const files = 
+      (event.target as HTMLInputElement).files! ||
+      (event as DragEvent).dataTransfer!.files; // dataTransfer: Drag Event
+
+    const file = files[0]
     setSelectedFile(files[0])
   }
-
   const handleSubmit = async (event: SyntheticEvent) => {
     event.preventDefault()
 
@@ -114,8 +119,11 @@ const Admin = () => {
       }
 
       if (success) {
+        // clean up
         setForm(initialState.article)
-        // TODO: clear also file input!
+        setSelectedFile(undefined);
+        (fileInput.current! as HTMLInputElement).value = '';
+        
         const articleId = res?.data.id;
 
         setNotification(prev => ({
@@ -133,6 +141,8 @@ const Admin = () => {
       console.error(err)
     }
   }
+
+  const fileInput = useRef(null)
 
   return (
     <div className="Admin">
@@ -158,7 +168,13 @@ const Admin = () => {
         </div>
         <div className="form-ctrl">
           <label htmlFor="fileInput">Foto hinzufügen</label>
-          <input id="fileInput" type="file" onChange={handleFileChange} />
+          <input
+            ref={fileInput}
+            id="fileInput"
+            type="file"
+            accept="image/png, image/jpeg"
+            onChange={handleFileChange}
+          />
         </div>
         <button type="submit">POSTEN</button>
       </form>
