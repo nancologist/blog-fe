@@ -21,7 +21,6 @@ const Admin = () => {
   // States:
   const [selectedFile, setSelectedFile] = useState<File | undefined>(undefined);
   const [form, setForm] = useState<ArticleForm>(initialState.article);
-  const [fileInputVal, setFileInputVal] = useState('')
   const [notification, setNotification] = useState({
     show: false,
     msg: '',
@@ -72,7 +71,7 @@ const Admin = () => {
       (event as DragEvent).dataTransfer!.files; // dataTransfer: Drag Event
 
     const file = files[0]
-    setSelectedFile(files[0])
+    setSelectedFile(file)
   }
   const handleSubmit = async (event: SyntheticEvent) => {
     event.preventDefault()
