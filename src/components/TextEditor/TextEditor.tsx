@@ -16,6 +16,13 @@ const TextEditor = () => {
     return 'not-handled';
   };
 
+  const ctrlBtn = {
+    handleBold() {
+      setEditorState(
+        RichUtils.toggleInlineStyle(editorState, 'BOLD')
+      );
+    }
+  };
 
   
   const logIt = () => {
@@ -26,6 +33,7 @@ const TextEditor = () => {
     <>
       <button onClick={logIt}>LOG</button><br /><br />
 
+      <button onClick={ctrlBtn.handleBold}>B</button>
       <Editor
         editorState={editorState}
         handleKeyCommand={handleKeyCommand}
