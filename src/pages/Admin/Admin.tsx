@@ -7,6 +7,7 @@ import Notification from '../../components/Notification/Notification'
 import { useAppSelector } from '../../store/hooks';
 import imgPlaceholder from '../../assets/img/placeholder.png';
 import { generateBase64 } from '../../utils'
+import TextEditor from '../../components/TextEditor/TextEditor';
 
 const initialState = {
   article: {
@@ -201,6 +202,8 @@ const Admin = () => {
 
         <button type="submit">POSTEN</button>
       </form>
+
+      <TextEditor />
 
       <Notification
         show={notification.show}
