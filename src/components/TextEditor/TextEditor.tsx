@@ -1,6 +1,7 @@
 import { useState } from 'react';
 import { Editor, EditorState, RichUtils } from 'draft-js';
 import 'draft-js/dist/Draft.css';
+import './TextEditor.css';
 
 const TextEditor = () => {
   const [editorState, setEditorState] = useState(() => EditorState.createEmpty());
@@ -34,14 +35,19 @@ const TextEditor = () => {
       <button onClick={logIt}>LOG</button><br /><br />
 
       <button onClick={ctrlBtn.handleBold}>B</button>
-      <Editor
-        editorState={editorState}
-        handleKeyCommand={handleKeyCommand}
-        onChange={setEditorState}
-        placeholder="Write some text..."
-      />
+      <div className="editor-wrapper">
+        <Editor
+          editorState={editorState}
+          handleKeyCommand={handleKeyCommand}
+          onChange={setEditorState}
+          placeholder="Write some text..."
+        />
+      </div>
     </>
   );
 }
 
 export default TextEditor;
+
+// Interesting from Draftjs Docs:
+// - https://draftjs.org/docs/advanced-topics-block-styling
