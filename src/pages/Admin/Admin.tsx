@@ -8,6 +8,7 @@ import { useAppSelector } from '../../store/hooks';
 import imgPlaceholder from '../../assets/img/placeholder.png';
 import { generateBase64 } from '../../utils'
 import TextEditor from '../../components/TextEditor/TextEditor';
+import { EditorState } from 'draft-js';
 
 const initialState = {
   article: {
@@ -36,6 +37,7 @@ const Admin = () => {
     }
   });
   const [imgPreview, setImgPreview] = useState(imgPlaceholder)
+  const [editorState, setEditorState] = useState(() => EditorState.createEmpty());
 
   // =============================================================
   // Redux: ======================================================
@@ -98,7 +100,10 @@ const Admin = () => {
     let data = new FormData();
     data.append('articleImage', selectedFile as File);
     data.append('articleTitle', form.title);
-    data.append('articleBody', form.body);
+    data.append(
+      'articleBody',
+      JSON.stringify(editorState.getCurrentContent())
+    );
 
     try {
       const authToken = localStorage.getItem('authToken') as string;
@@ -185,6 +190,8 @@ const Admin = () => {
           ></textarea>
         </div>
 
+        <TextEditor editorState={editorState} handleChangeEditorState={setEditorState} />
+
         {/* IMAGE INPUT */}
         <div className="form-ctrl img">
           <label htmlFor="fileInput">Foto hinzufügen</label>
@@ -202,8 +209,6 @@ const Admin = () => {
 
         <button type="submit">POSTEN</button>
       </form>
-
-      <TextEditor />
 
       <Notification
         show={notification.show}

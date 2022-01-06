@@ -1,16 +1,16 @@
 import { useState } from 'react';
-import { Editor, EditorState, RichUtils } from 'draft-js';
+import { Editor, EditorState, RichUtils, convertToRaw } from 'draft-js';
 import 'draft-js/dist/Draft.css';
 import './TextEditor.css';
 
-const TextEditor = () => {
-  const [editorState, setEditorState] = useState(() => EditorState.createEmpty());
+const TextEditor = ({ editorState, handleChangeEditorState }: any) => {
+  // const [editorState, setEditorState] = useState(() => EditorState.createEmpty());
 
   const handleKeyCommand = (command: any, editorState: any) => {
     const newState = RichUtils.handleKeyCommand(editorState, command);
 
     if (newState) {
-      setEditorState(newState);
+      handleChangeEditorState(newState);
       return 'handled';
     }
 
@@ -19,27 +19,20 @@ const TextEditor = () => {
 
   const ctrlBtn = {
     handleBold() {
-      setEditorState(
+      handleChangeEditorState(
         RichUtils.toggleInlineStyle(editorState, 'BOLD')
       );
     }
   };
 
-  
-  const logIt = () => {
-    console.log(editorState);
-  };
-
   return (
     <>
-      <button onClick={logIt}>LOG</button><br /><br />
-
-      <button onClick={ctrlBtn.handleBold}>B</button>
+      <button type="button" onClick={ctrlBtn.handleBold}>B</button>
       <div className="editor-wrapper">
         <Editor
           editorState={editorState}
           handleKeyCommand={handleKeyCommand}
-          onChange={setEditorState}
+          onChange={handleChangeEditorState}
           placeholder="Write some text..."
         />
       </div>
