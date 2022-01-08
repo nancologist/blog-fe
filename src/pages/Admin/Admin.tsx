@@ -29,8 +29,10 @@ const stringifyRichText = (editorState: EditorState) => {
 // FIXME: Post 2 articles back to back, the 2nd one won't get a green notificataion!
 
 const Admin = () => {
-  const [selectedFile, setSelectedFile] = useState<File | undefined>(undefined);
+  // State
+  const [editorState, setEditorState] = useState(() => EditorState.createEmpty());
   const [form, setForm] = useState<ArticleForm>(initialState.article);
+  const [imgPreview, setImgPreview] = useState(imgPlaceholder);
   const [notification, setNotification] = useState({
     show: false,
     msg: '',
@@ -41,14 +43,14 @@ const Admin = () => {
       to: ''
     }
   });
-  const [imgPreview, setImgPreview] = useState(imgPlaceholder)
-  const [editorState, setEditorState] = useState(() => EditorState.createEmpty());
+  const [selectedFile, setSelectedFile] = useState<File | undefined>(undefined);
 
+  // Redux
   const isEditing = useAppSelector(state => state.article.isEditing);
   const storedArticle = useAppSelector(state => state.article.instance);
 
   useEffect(
-    () => {
+    function() {
       if (isEditing) {
         setForm({
           title: storedArticle.title,
@@ -66,15 +68,8 @@ const Admin = () => {
           )
         )
       )
-      
-    },
-    
-    [
-      isEditing,
-      storedArticle.title,
-      storedArticle.body,
-      storedArticle.tags
-    ]
+    },    
+    [isEditing, storedArticle.title, storedArticle.body, storedArticle.tags]
   );
 
   const handleChange = (
