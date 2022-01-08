@@ -18,7 +18,7 @@ const Article = () => {
   const navigate = useNavigate();
   const dispatch = useAppDispatch();
 
-  const [viewBody, setViewBody] = useState<ReactElement | null>(null)
+  const [bodyView, setBodyView] = useState<ReactElement | null>(null)
   useEffect(() => {
     (async () => {
       try {
@@ -26,18 +26,21 @@ const Article = () => {
         setArticle(res.data as IArticle);
         dispatch(articleActions.store(res.data as IArticle));
 
-        setViewBody(<Editor
-          editorState={
-            EditorState.createWithContent(
-              convertFromRaw(
-                JSON.parse(
-                  res.data.body
+        setBodyView(
+          <Editor
+            editorState={
+              EditorState.createWithContent(
+                convertFromRaw(
+                  JSON.parse(
+                    res.data.body
+                  )
                 )
               )
-            )
-          }
-          onChange={(x: EditorState) => {}}
-        />)
+            }
+            readOnly
+            onChange={(_: EditorState) => {}}
+          />
+        );
 
       } catch (err) {
         console.error(err)
@@ -75,18 +78,17 @@ const Article = () => {
     }
   };
 
-  const logIt = () => {
-    console.log(
-      convertFromRaw(
-        JSON.parse(
-          article.body
-        )
-      )
-    );
-  }
+  // const logIt = () => {
+  //   console.log(
+  //     convertFromRaw(
+  //       JSON.parse(
+  //         article.body
+  //       )
+  //     )
+  //   );
+  // }
 
   return (
-    // TODO: Unify all the page layouts (e.g. in a CSS class called "page")
     <div className="Article"> 
       <div className="Article__header">
         <div className="Article__header__title">
@@ -104,14 +106,9 @@ const Article = () => {
         {/* <button>Sichtbarkeit ändern</button> */}
       </div>
       {article.imageName ? <div className="Article__image-wrap"><img src={s3Url + article.imageName} alt="" /></div> : null}
-      <p>{article.body}</p>
-
-      {
-        viewBody
-      }
+      { bodyView }
       
-      <button onClick={logIt}>LOG</button>
-
+      {/* <button onClick={logIt}>LOG</button> */}
     </div>
   )
 };

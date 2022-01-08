@@ -1,5 +1,4 @@
-import { useState } from 'react';
-import { Editor, EditorState, RichUtils, convertToRaw } from 'draft-js';
+import { Editor, RichUtils } from 'draft-js';
 import 'draft-js/dist/Draft.css';
 import './TextEditor.css';
 
