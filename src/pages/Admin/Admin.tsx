@@ -8,7 +8,7 @@ import { useAppSelector } from '../../store/hooks';
 import imgPlaceholder from '../../assets/img/placeholder.png';
 import { generateBase64 } from '../../utils'
 import TextEditor from '../../components/TextEditor/TextEditor';
-import { convertToRaw, EditorState, convertFromRaw } from 'draft-js';
+import { convertToRaw, EditorState, convertFromRaw, ContentState } from 'draft-js';
 
 const initialState = {
   article: {
@@ -17,6 +17,14 @@ const initialState = {
     tags: []
   }
 };
+
+const stringifyBody = (body: ContentState) => {
+  return JSON.stringify(
+    convertToRaw(
+      body
+    )
+  )
+}
 
 // FIXME: Post 2 articles back to back, the 2nd one won't get a green notificataion!
 
@@ -113,10 +121,8 @@ const Admin = () => {
     data.append('articleTitle', form.title);
     data.append(
       'articleBody',
-      JSON.stringify(
-        convertToRaw(
-          editorState.getCurrentContent()
-        )
+      stringifyBody(
+        editorState.getCurrentContent()
       )
     );
 
@@ -139,20 +145,24 @@ const Admin = () => {
         return;
       }
 
+      console.log('Is-Editing:: ', isEditing);
+
       let res;
       let success = false;
       if (!isEditing) {
         res = await api.article.post(data);
         success = res.data.code === 'POSTED';
       } else {
+
+        // TODO: Add EditPicture to EditArticle later
+
         res = await api.article.put({
           article: {
             ...storedArticle,
             title: form.title,
-            body: form.body
+            body: stringifyBody(editorState.getCurrentContent())
           }
         });
-        console.log(res);
         success = res.data.code === 'UPDATED';
       }
 
