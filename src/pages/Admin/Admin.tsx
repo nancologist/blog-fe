@@ -18,10 +18,10 @@ const initialState = {
   }
 };
 
-const stringifyBody = (body: ContentState) => {
+const stringifyRichText = (editorState: EditorState) => {
   return JSON.stringify(
     convertToRaw(
-      body
+      editorState.getCurrentContent()
     )
   )
 }
@@ -121,9 +121,7 @@ const Admin = () => {
     data.append('articleTitle', form.title);
     data.append(
       'articleBody',
-      stringifyBody(
-        editorState.getCurrentContent()
-      )
+      stringifyRichText(editorState)
     );
 
     try {
@@ -160,7 +158,7 @@ const Admin = () => {
           article: {
             ...storedArticle,
             title: form.title,
-            body: stringifyBody(editorState.getCurrentContent())
+            body: stringifyRichText(editorState)
           }
         });
         success = res.data.code === 'UPDATED';
