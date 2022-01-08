@@ -29,9 +29,6 @@ const stringifyRichText = (editorState: EditorState) => {
 // FIXME: Post 2 articles back to back, the 2nd one won't get a green notificataion!
 
 const Admin = () => {
-  // =============================================================
-  // States: =====================================================
-  // =============================================================
   const [selectedFile, setSelectedFile] = useState<File | undefined>(undefined);
   const [form, setForm] = useState<ArticleForm>(initialState.article);
   const [notification, setNotification] = useState({
@@ -47,9 +44,6 @@ const Admin = () => {
   const [imgPreview, setImgPreview] = useState(imgPlaceholder)
   const [editorState, setEditorState] = useState(() => EditorState.createEmpty());
 
-  // =============================================================
-  // Redux: ======================================================
-  // =============================================================
   const isEditing = useAppSelector(state => state.article.isEditing);
   const storedArticle = useAppSelector(state => state.article.instance);
 
@@ -83,9 +77,6 @@ const Admin = () => {
     ]
   );
 
-  // =============================================================
-  // Methods: ====================================================
-  // =============================================================
   const handleChange = (
     event: ChangeEvent<HTMLInputElement | HTMLTextAreaElement>,
     fieldName: string
