@@ -1,4 +1,4 @@
-import { useEffect, useState } from 'react';
+import { ReactElement, useEffect, useState } from 'react';
 import { useNavigate, useParams } from 'react-router';
 
 import './Article.css'
@@ -8,6 +8,7 @@ import { Article as IArticle } from '../../types/models';
 import * as utils from '../../utils';
 import { useAppSelector, useAppDispatch } from '../../store/hooks';
 import * as articleActions from '../../store/article/actions';
+import { convertFromRaw, Editor, EditorState } from 'draft-js';
 
 const s3Url = process.env.REACT_APP_S3_URL
 
@@ -17,12 +18,27 @@ const Article = () => {
   const navigate = useNavigate();
   const dispatch = useAppDispatch();
 
+  const [viewBody, setViewBody] = useState<ReactElement | null>(null)
   useEffect(() => {
     (async () => {
       try {
         const res = await api.article.getSingle(id!)
         setArticle(res.data as IArticle);
         dispatch(articleActions.store(res.data as IArticle));
+
+        setViewBody(<Editor
+          editorState={
+            EditorState.createWithContent(
+              convertFromRaw(
+                JSON.parse(
+                  res.data.body
+                )
+              )
+            )
+          }
+          onChange={(x: EditorState) => {}}
+        />)
+
       } catch (err) {
         console.error(err)
       }
@@ -59,6 +75,16 @@ const Article = () => {
     }
   };
 
+  const logIt = () => {
+    console.log(
+      convertFromRaw(
+        JSON.parse(
+          article.body
+        )
+      )
+    );
+  }
+
   return (
     // TODO: Unify all the page layouts (e.g. in a CSS class called "page")
     <div className="Article"> 
@@ -79,6 +105,13 @@ const Article = () => {
       </div>
       {article.imageName ? <div className="Article__image-wrap"><img src={s3Url + article.imageName} alt="" /></div> : null}
       <p>{article.body}</p>
+
+      {
+        viewBody
+      }
+      
+      <button onClick={logIt}>LOG</button>
+
     </div>
   )
 };

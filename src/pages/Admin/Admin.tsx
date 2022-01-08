@@ -8,7 +8,7 @@ import { useAppSelector } from '../../store/hooks';
 import imgPlaceholder from '../../assets/img/placeholder.png';
 import { generateBase64 } from '../../utils'
 import TextEditor from '../../components/TextEditor/TextEditor';
-import { EditorState } from 'draft-js';
+import { convertToRaw, EditorState } from 'draft-js';
 
 const initialState = {
   article: {
@@ -102,7 +102,11 @@ const Admin = () => {
     data.append('articleTitle', form.title);
     data.append(
       'articleBody',
-      JSON.stringify(editorState.getCurrentContent())
+      JSON.stringify(
+        convertToRaw(
+          editorState.getCurrentContent()
+        )
+      )
     );
 
     try {
