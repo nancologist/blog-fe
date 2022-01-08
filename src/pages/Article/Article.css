@@ -1,5 +1,7 @@
 .Article {
   padding: 20px;
+  width: 60%;
+  margin: 0 auto;
 }
 
 .Article__header {
@@ -25,6 +27,6 @@
 }
 
 .Article__image-wrap img {
-  max-width: 80%;
+  max-width: 30%;
   max-height: 500px;
 }

@@ -8,7 +8,7 @@ import { useAppSelector } from '../../store/hooks';
 import imgPlaceholder from '../../assets/img/placeholder.png';
 import { generateBase64 } from '../../utils'
 import TextEditor from '../../components/TextEditor/TextEditor';
-import { convertToRaw, EditorState } from 'draft-js';
+import { convertToRaw, EditorState, convertFromRaw } from 'draft-js';
 
 const initialState = {
   article: {
@@ -54,6 +54,17 @@ const Admin = () => {
           tags: storedArticle.tags
         })
       }
+
+      setEditorState(
+        EditorState.createWithContent(
+          convertFromRaw(
+            JSON.parse(
+              storedArticle.body
+            )
+          )
+        )
+      )
+      
     },
     
     [
@@ -186,15 +197,8 @@ const Admin = () => {
         </div>
 
         <div className="form-ctrl">
-          <textarea
-            cols={30} rows={10} id="body"
-            onChange={(event) => handleChange(event, 'body')}
-            placeholder="Write message ..."
-            value={form.body}
-          ></textarea>
+          <TextEditor editorState={editorState} handleChangeEditorState={setEditorState} />
         </div>
-
-        <TextEditor editorState={editorState} handleChangeEditorState={setEditorState} />
 
         {/* IMAGE INPUT */}
         <div className="form-ctrl img">

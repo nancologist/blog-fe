@@ -3,8 +3,6 @@ import 'draft-js/dist/Draft.css';
 import './TextEditor.css';
 
 const TextEditor = ({ editorState, handleChangeEditorState }: any) => {
-  // const [editorState, setEditorState] = useState(() => EditorState.createEmpty());
-
   const handleKeyCommand = (command: any, editorState: any) => {
     const newState = RichUtils.handleKeyCommand(editorState, command);
 
@@ -25,8 +23,10 @@ const TextEditor = ({ editorState, handleChangeEditorState }: any) => {
   };
 
   return (
-    <>
-      <button type="button" onClick={ctrlBtn.handleBold}>B</button>
+    <div className="TextEditor">
+      <div className="TextEditor__ctrls">
+        <button type="button" onClick={ctrlBtn.handleBold}>B</button>
+      </div>
       <div className="editor-wrapper">
         <Editor
           editorState={editorState}
@@ -35,7 +35,7 @@ const TextEditor = ({ editorState, handleChangeEditorState }: any) => {
           placeholder="Write some text..."
         />
       </div>
-    </>
+    </div>
   );
 }
 

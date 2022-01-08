@@ -1,3 +1,7 @@
+.TextEditor__ctrls button {
+  display: inline;
+}
+
 .editor-wrapper {
   border: solid black 1px;
 }

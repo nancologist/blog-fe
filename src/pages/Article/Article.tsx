@@ -105,8 +105,8 @@ const Article = () => {
         {/* TODO: Add feature later so user can change the visibility of a post */}
         {/* <button>Sichtbarkeit ändern</button> */}
       </div>
-      {article.imageName ? <div className="Article__image-wrap"><img src={s3Url + article.imageName} alt="" /></div> : null}
       { bodyView }
+      {article.imageName ? <div className="Article__image-wrap"><img src={s3Url + article.imageName} alt="" /></div> : null}
       
       {/* <button onClick={logIt}>LOG</button> */}
     </div>
