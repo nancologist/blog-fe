@@ -57,17 +57,17 @@ const Admin = () => {
           body: storedArticle.body,
           tags: storedArticle.tags
         })
-      }
 
-      setEditorState(
-        EditorState.createWithContent(
-          convertFromRaw(
-            JSON.parse(
-              storedArticle.body
+        setEditorState(
+          EditorState.createWithContent(
+            convertFromRaw(
+              JSON.parse(
+                storedArticle.body
+              )
             )
           )
         )
-      )
+      }
     },    
     [isEditing, storedArticle.title, storedArticle.body, storedArticle.tags]
   );
@@ -128,8 +128,6 @@ const Admin = () => {
 
         return;
       }
-
-      console.log('Is-Editing:: ', isEditing);
 
       let res;
       let success = false;
