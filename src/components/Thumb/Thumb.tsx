@@ -24,7 +24,7 @@ const Thumb = ({ article }: Props) => {
       <div className="thumb">
 
         <div className="thumb__text">
-          <div>
+          <div className="thumb__text__body">
             <h3>{titleThumb}</h3>
             <p>{bodyThumb}</p>
           </div>
