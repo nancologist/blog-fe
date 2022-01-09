@@ -5,7 +5,7 @@ import './Article.css'
 import api from '../../api/public';
 import privateApi from '../../api/private';
 import { Article as IArticle } from '../../types/models';
-import * as utils from '../../utils';
+import { convertNumToDate } from '../../utils';
 import { useAppSelector, useAppDispatch } from '../../store/hooks';
 import * as articleActions from '../../store/article/actions';
 import { convertFromRaw, Editor, EditorState } from 'draft-js';
@@ -58,7 +58,7 @@ const Article = () => {
     tags: []
   });
   
-  const createdAt = utils.convertNumToDate(article.createdAt);
+  const createdAt = convertNumToDate(article.createdAt);
 
   const handleEdit = () => {
     dispatch(articleActions.isEditing(true));

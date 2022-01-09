@@ -1,6 +1,5 @@
 .thumb {
-  border: 1px solid gray;
-  border-radius: 5px;
+  border-bottom: 2px solid gray;
   cursor: pointer;
   display: inline-flex; justify-content: space-between;
 
@@ -10,15 +9,25 @@
   margin: 15px;
   padding: 10px;
   text-align: left;
-  width: 500px;
+  width: 600px;
+}
+
+.thumb__text {
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  margin-right: 20px;
+}
+
+.thumb__text__date {
+  color: gray;
+  display: block;
+  font-size: 0.9rem;
 }
 
 .thumb_img-wrap {
-  height: 100px;
-  width: 100px;
+  width: 150px;
 }
-
 .thumb_img-wrap img {
-  height: inherit;
   width: inherit;
 }

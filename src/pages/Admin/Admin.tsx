@@ -8,7 +8,7 @@ import { useAppSelector } from '../../store/hooks';
 import imgPlaceholder from '../../assets/img/placeholder.png';
 import { generateBase64 } from '../../utils'
 import TextEditor from '../../components/TextEditor/TextEditor';
-import { convertToRaw, EditorState, convertFromRaw, ContentState } from 'draft-js';
+import { convertToRaw, EditorState, convertFromRaw } from 'draft-js';
 
 const initialState = {
   article: {
