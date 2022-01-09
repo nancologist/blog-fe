@@ -1,4 +1,13 @@
 .Article {
+  display: flex;
+}
+
+.pattern {
+  width: 300px;
+  background-image: url('../../assets/img/muster-1.png');
+}
+
+.Article__content {
   padding: 20px;
   width: 50%;
   margin: 0 auto;

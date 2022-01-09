@@ -9,6 +9,7 @@ import * as utils from '../../utils';
 import { useAppSelector, useAppDispatch } from '../../store/hooks';
 import * as articleActions from '../../store/article/actions';
 import { convertFromRaw, Editor, EditorState } from 'draft-js';
+// import pattern1 from '../../assets/img/muster-1.png';
 
 const s3Url = process.env.REACT_APP_S3_URL
 
@@ -89,26 +90,29 @@ const Article = () => {
   // }
 
   return (
-    <div className="Article"> 
-      <div className="Article__header">
-        <div className="Article__header__title">
-          <h1>{article.title}</h1>
-          <span className="Article__header__title__date">erstellt am {createdAt}</span>
+    <div className="Article">
+      <div className="pattern"></div>
+      <div className="Article__content">
+        <div className="Article__header">
+          <div className="Article__header__title">
+            <h1>{article.title}</h1>
+            <span className="Article__header__title__date">erstellt am {createdAt}</span>
+          </div>
+          {
+            isAuth ?
+              <div className="Article__header__ctrl">
+                <button onClick={handleEdit}>Bearbeiten</button>
+                <button onClick={handleDelete}>Löschen</button>
+              </div> : null
+          }
+          {/* TODO: Add feature later so user can change the visibility of a post */}
+          {/* <button>Sichtbarkeit ändern</button> */}
         </div>
-        {
-          isAuth ?
-            <div className="Article__header__ctrl">
-              <button onClick={handleEdit}>Bearbeiten</button>
-              <button onClick={handleDelete}>Löschen</button>
-            </div> : null
-        }
-        {/* TODO: Add feature later so user can change the visibility of a post */}
-        {/* <button>Sichtbarkeit ändern</button> */}
+        { bodyView }
+        {article.imageName ? <div className="Article__image-wrap"><img src={s3Url + article.imageName} alt="" /></div> : null}
       </div>
-      { bodyView }
-      {article.imageName ? <div className="Article__image-wrap"><img src={s3Url + article.imageName} alt="" /></div> : null}
-      
       {/* <button onClick={logIt}>LOG</button> */}
+      <div className="pattern"></div>
     </div>
   )
 };

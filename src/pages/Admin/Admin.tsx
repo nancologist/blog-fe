@@ -135,9 +135,6 @@ const Admin = () => {
         res = await api.article.post(data);
         success = res.data.code === 'POSTED';
       } else {
-
-        // TODO: Add EditPicture to EditArticle later
-
         res = await api.article.put({
           article: {
             ...storedArticle,
@@ -193,19 +190,22 @@ const Admin = () => {
         </div>
 
         {/* IMAGE INPUT */}
-        <div className="form-ctrl img">
-          <label htmlFor="fileInput">Foto hinzufügen</label>
-          <div className="form__img-preview">
-            <img src={imgPreview} alt="" />
+        {/* TODO: Add EditPicture to EditArticle later */}
+        {isEditing ? null :
+          <div className="form-ctrl img">
+            <label htmlFor="fileInput">Foto hinzufügen</label>
+            <div className="form__img-preview">
+              <img src={imgPreview} alt="" />
+            </div>
+            <input
+              ref={fileInput}
+              id="fileInput"
+              type="file"
+              accept="image/png, image/jpeg"
+              onChange={handleFileChange}
+            />
           </div>
-          <input
-            ref={fileInput}
-            id="fileInput"
-            type="file"
-            accept="image/png, image/jpeg"
-            onChange={handleFileChange}
-          />
-        </div>
+        }
 
         <button type="submit">POSTEN</button>
       </form>
