@@ -3,14 +3,20 @@
 }
 
 .pattern {
-  width: 300px;
+  width: 400px;
   background-image: url('../../assets/img/muster-1.png');
 }
 
 .Article__content {
+  border: 1px solid black;
+  border-radius: 10px;
+  margin: 20px auto;
   padding: 20px;
   width: 50%;
-  margin: 0 auto;
+
+  font-size: 1.4rem;
+  font-family: 'Twinkle Star';
+  /* font-family: 'Dancing Script'; */
 }
 
 .Article__header {
