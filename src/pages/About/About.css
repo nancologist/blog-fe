@@ -2,9 +2,27 @@
   line-height: 1.5;
   margin: auto;
   padding: 20px;
-  width: 50%;
+  width: 55%;
 }
 
 .About__title {
   margin-bottom: 20px;
+}
+
+.About__text-pic {
+  align-items: flex-start;
+  display: flex;
+  margin-bottom: 20px;
+}
+
+.About__text-pic .text {
+  /* padding: 20px 0; */
+  margin-right: 30px;
+  padding-top: 10px;
+}
+
+.About__text-pic img {
+  border-radius: 5px;
+  margin-left: 20px;
+  width: 230px;
 }

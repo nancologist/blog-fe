@@ -1,8 +1,36 @@
+header {
+  background-color: #fff;
+  box-shadow: 1px 0px 5px grey;
+  height: 80px;
+  position: fixed;
+  width: 100%;
+}
+
 .nav {
-  border-bottom: 1px solid gray;
+  align-items: center;
   display: flex;
-  padding: 10px;
+  height: 100%;
+  justify-content: space-between;
+  margin: auto;
+  text-transform: uppercase;
+  width: 70%;
+}
+
+.nav .logo h1 {
+  /* font-family: 'Tinos', serif; */
+  /* font-family: 'Cinzel', serif; */
+  /* font-family: 'Dancing Script', cursive; */
+  /* font-family: 'Josefin Slab', serif; */
+  font-family: 'Roboto', sans-serif;
+  /* font-family: 'Twinkle Star', cursive; */
+  /* font-family: 'Zilla Slab', serif; */
+}
+
+.nav__items {
+  align-items: center;
+  display: flex;
   justify-content: flex-start;
+  padding: 10px;
 }
 
 .nav__item {

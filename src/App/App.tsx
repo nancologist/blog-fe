@@ -33,16 +33,18 @@ const App = () => {
 
       <Header />
 
-      <Routes>
-        <Route path="/" element={<Home />} />
-        <Route path="/about" element={<About />} />
-        <Route path="/admin" element={isAuth ? <Admin /> : <NotFound />} />
-        
-        {/* FIXME: If id is not valid send it to NotFound  */}
-        <Route path="/article/:id" element={<Article />} />
-        <Route path="/l0g1n" element={<Login />} />
-        <Route path="*" element={<NotFound />} />
-      </Routes>
+      <div className="main">
+        <Routes>
+          <Route path="/" element={<Home />} />
+          <Route path="/about" element={<About />} />
+          <Route path="/admin" element={isAuth ? <Admin /> : <NotFound />} />
+          
+          {/* FIXME: If id is not valid send it to NotFound  */}
+          <Route path="/article/:id" element={<Article />} />
+          <Route path="/l0g1n" element={<Login />} />
+          <Route path="*" element={<NotFound />} />
+        </Routes>
+      </div>
 
     </div>
   );

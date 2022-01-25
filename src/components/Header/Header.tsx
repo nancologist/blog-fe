@@ -11,24 +11,29 @@ const Header = () => {
   return (
     <header>
       <nav className="nav">
-        {navItems.map(item => {
-          if (item.label === 'Admin' && !isAuth) {
-            return null;
-          }
+        <div className="logo">
+          <h1>Hello Logo</h1>
+        </div>
+        <div className="nav__items">
+          {navItems.map(item => {
+            if (item.label === 'Admin' && !isAuth) {
+              return null;
+            }
 
-          return (
-            <NavLink
-              className={({ isActive }) => [
-                'nav__item',
-                isActive ? 'active' : null
-              ].join(' ')}
-              key={item.path}
-              to={item.path}
-            >
-              {item.label}
-            </NavLink>
-          );
-        })}
+            return (
+              <NavLink
+                className={({ isActive }) => [
+                  'nav__item',
+                  isActive ? 'active' : null
+                ].join(' ')}
+                key={item.path}
+                to={item.path}
+              >
+                {item.label}
+              </NavLink>
+            );
+          })}
+        </div>
       </nav>
     </header>
   );

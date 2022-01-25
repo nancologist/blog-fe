@@ -1,4 +1,31 @@
+body {
+  background-color: #f8f6f3;
+}
+
 .App {
-  font-family: 'Roboto', Arial, Helvetica, sans-serif;
-  font-size: 1.3rem;
+  color: #534d50;
+
+  font-family: 'Tinos', serif;
+  /* font-family: 'Cinzel', serif; */
+  /* font-family: 'Dancing Script', cursive; */
+  /* font-family: 'Josefin Slab', serif; */
+  /* font-family: 'Roboto', sans-serif; */
+  /* font-family: 'Twinkle Star', cursive; */
+  /* font-family: 'Zilla Slab', serif; */
+
+  font-size: 1.2rem;
+}
+
+h1, h2, h3, h4, h5, h6 {
+  font-family: 'Cinzel', serif;
+  /* font-family: 'Twinkle Star', cursive; */
+  /* font-family: 'Dancing Script', cursive; */
+  /* font-family: 'Josefin Slab', serif; */
+  /* font-family: 'Roboto', sans-serif; */
+  /* font-family: 'Tinos', serif; */
+  /* font-family: 'Zilla Slab', serif; */
+}
+
+.main {
+  padding-top: 80px;
 }
