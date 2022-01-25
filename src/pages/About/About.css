@@ -2,6 +2,8 @@
   line-height: 1.5;
   margin: auto;
   padding: 20px;
+  text-align: justify;
+  text-justify: justify;
   width: 55%;
 }
 
