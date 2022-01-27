@@ -1,9 +1,5 @@
-import axios from 'axios'
+import { http } from './public'
 import { Article } from '../types/models'
-
-const http = axios.create({
-  baseURL: process.env.REACT_APP_API_URL,
-})
 
 http.interceptors.request.use((config) => {
   const token = localStorage.getItem('authToken')

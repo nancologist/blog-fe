@@ -1,8 +1,8 @@
 import axios from 'axios'
 import { LoginForm } from '../types';
 
-const http = axios.create({
   baseURL: process.env.REACT_APP_API_URL
+export const http = axios.create({
 })
 
 const api = {
