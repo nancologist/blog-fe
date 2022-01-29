@@ -45,3 +45,9 @@
   max-width: 40%;
   max-height: 500px;
 }
+
+.justified span {
+  display: block;
+  text-align: justify;
+  text-justify: inter-word;
+}

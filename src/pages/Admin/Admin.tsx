@@ -207,7 +207,7 @@ const Admin = () => {
           </div>
         }
 
-        <button type="submit">POSTEN</button>
+        <button type="submit">{isEditing ? 'BEARBEITEN' : 'ERSTELLEN'}</button>
       </form>
 
       <Notification
