@@ -43,3 +43,8 @@ input[type=number] {
 button {
   cursor: pointer;
 }
+
+.dark {
+  background-color: #444;
+  color: white;
+}

@@ -1,10 +1,10 @@
 body {
   background-color: #f8f6f3;
+  color: #534d50;
+  transition: 400ms;
 }
 
 .App {
-  color: #534d50;
-
   font-family: 'Tinos', serif;
   /* font-family: 'Cinzel', serif; */
   /* font-family: 'Dancing Script', cursive; */
@@ -28,4 +28,11 @@ h1, h2, h3, h4, h5, h6 {
 
 .main {
   padding-top: 80px;
+}
+
+.float {
+  bottom: 20px;
+  cursor: pointer;
+  position: fixed;
+  right: 20px;
 }

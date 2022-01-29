@@ -7,9 +7,10 @@ import './Header.css'
 
 const Header = () => {
   const isAuth = useAppSelector((state: RootState) => state.auth.verified);
+  const isDark = useAppSelector((state: RootState) => state.theme.isDark)
 
   return (
-    <header>
+    <header className={isDark ? 'dark' : undefined }>
       <nav className="nav">
         <div className="logo">
           <h1>Hello Logo</h1>
