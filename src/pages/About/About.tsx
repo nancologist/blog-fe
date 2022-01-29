@@ -5,12 +5,10 @@ const About = () => {
   return (
     <div className="About">
       <h2 className="About__title">Über den Blog</h2>
-      <div className="About__text-pic">
-        <div className="text">
-          <p>
-            Mein Name ist Angélique .Bereits 28 Jahre verbrachte ich auf dieser Erde. Viel Zeit davon verbrachte ich mit einer endlosen Suche nach dem, was die Welt wohl zusammen hält, nach dem Geheimnis dieser Welt. Mit vielen Bemühungen habe ich versucht, wenigstens ein kleines bisschen der Wahrheit näher zu kommen, die sich hinter all den Dingen verbirgt. Mal mehr und mal weniger erfolgreich. Mit jedem Jahr weiterer Lebenserfahrung offenbarte sie sich mir mehr und mehr und ich öffnete immer mein Herz für diese Wahrheit. Doch dies ist ein langer, nie endener Weg mit vielen Verirrungen und Lichtblicken, mit Stürzen und Triumphen und nie endenen Mühen. Aber die Früchte dessen sind wunderbar!
-          </p>
-        </div>
+      <p>
+        Mein Name ist Angélique .Bereits 28 Jahre verbrachte ich auf dieser Erde. Viel Zeit davon verbrachte ich mit einer endlosen Suche nach dem, was die Welt wohl zusammen hält, nach dem Geheimnis dieser Welt. Mit vielen Bemühungen habe ich versucht, wenigstens ein kleines bisschen der Wahrheit näher zu kommen, die sich hinter all den Dingen verbirgt. Mal mehr und mal weniger erfolgreich. Mit jedem Jahr weiterer Lebenserfahrung offenbarte sie sich mir mehr und mehr und ich öffnete immer mein Herz für diese Wahrheit. Doch dies ist ein langer, nie endener Weg mit vielen Verirrungen und Lichtblicken, mit Stürzen und Triumphen und nie endenen Mühen. Aber die Früchte dessen sind wunderbar!
+      </p>
+      <div className="img-wrap">
         <img src={bioImg} alt="" />
       </div>
       <p>
