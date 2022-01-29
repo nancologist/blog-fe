@@ -7,13 +7,11 @@ import './Header.css'
 
 const Header = () => {
   const isAuth = useAppSelector((state: RootState) => state.auth.verified);
+  const isDark = useAppSelector((state: RootState) => state.theme.isDark)
 
   return (
-    <header>
+    <header className={isDark ? 'dark' : undefined }>
       <nav className="nav">
-        <div className="logo">
-          <h1>Hello Logo</h1>
-        </div>
         <div className="nav__items">
           {navItems.map(item => {
             if (item.label === 'Admin' && !isAuth) {
@@ -41,11 +39,27 @@ const Header = () => {
 
 const navItems: NavItem[] = [
   {
-    label: 'Home',
+    label: 'Startseite',
     path: '/'
   },
   {
-    label: 'About',
+    label: 'Bindung und Erziehung',
+    path: '/bonding-and-upbringing'
+  },
+  {
+    label: 'Glaube',
+    path: '/belief'
+  },
+  {
+    label: 'Ernährung',
+    path: '/diet'
+  },
+  {
+    label: 'Wohnliches',
+    path: '/livable'
+  },
+  {
+    label: 'Über mich',
     path: '/about'
   },
   {

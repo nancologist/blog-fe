@@ -27,3 +27,7 @@ export interface ArticleState {
 export interface AuthState {
   verified: boolean;
 }
+
+export interface ThemeState {
+  isDark: boolean;
+}

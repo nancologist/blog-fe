@@ -13,6 +13,8 @@
   margin: 20px auto;
   padding: 20px;
   width: 50%;
+  text-align: justify !important;
+  /* text-justify: just; */
 }
 
 .Article__header {

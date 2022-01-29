@@ -149,7 +149,7 @@ const Admin = () => {
         // clean up
         setForm(initialState.article)
         setSelectedFile(undefined);
-        (fileInput.current! as HTMLInputElement).value = '';
+        if (selectedFile) (fileInput.current! as HTMLInputElement).value = '';
         
         const articleId = res?.data.id;
 
