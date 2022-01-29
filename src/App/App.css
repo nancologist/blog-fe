@@ -36,3 +36,9 @@ h1, h2, h3, h4, h5, h6 {
   position: fixed;
   right: 20px;
 }
+
+@media only screen and (max-width: 900px) {
+  .main {
+    padding-top: 272px;
+  }
+}
