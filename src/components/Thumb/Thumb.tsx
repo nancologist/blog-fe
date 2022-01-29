@@ -2,10 +2,10 @@ import { Link } from 'react-router-dom';
 
 import './Thumb.css';
 import { ThumbProps as Props } from '../../types/cmp-props';
-import imgPlaceholder from '../../assets/img/placeholder.png';
+// import imgPlaceholder from '../../assets/img/placeholder.png';
 import { convertNumToDate } from '../../utils';
 
-const s3Url = process.env.REACT_APP_S3_URL;
+const s3Url = process.env.REACT_APP_S3_URL!;
 
 const Thumb = ({ article }: Props) => {
   const { _id, title, body, imageName, createdAt } = article;
@@ -17,7 +17,7 @@ const Thumb = ({ article }: Props) => {
   })
   bodyThumb = bodyThumb.length > 150 ? bodyThumb.substr(0, 150) + '...': bodyThumb;
 
-  const imgUrl = imageName ? s3Url + imageName : imgPlaceholder; 
+  const imgUrl = s3Url + imageName; 
 
   return (
     <Link to={'/article/' + _id}>

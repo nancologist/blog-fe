@@ -29,6 +29,7 @@ const Article = () => {
 
         setBodyView(
           <Editor
+            blockStyleFn={() => 'justified'}
             editorState={
               EditorState.createWithContent(
                 convertFromRaw(
