@@ -21,10 +21,13 @@ const App = () => {
 
   useEffect(() => {
     (async () => {
-      const res = await api.auth.checkToken();
-
-      const verified = res.data.code === 'TOKEN_VERIFIED';
-      dispatch(authActions.setVerified(verified));
+      try {
+        const res = await api.auth.checkToken();
+        const verified = res.data.code === 'TOKEN_VERIFIED';
+        dispatch(authActions.setVerified(verified));
+      } catch (err: any) {
+        console.log({...err})
+      }
     })();
   }, [dispatch]);
 
