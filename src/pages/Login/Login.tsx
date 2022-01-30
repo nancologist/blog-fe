@@ -56,6 +56,11 @@ const Login = () => {
           label="E-Mail"
           onChange={(e: ChangeEvent<HTMLInputElement>) => handleChange(e, 'email')}
           size="small"
+          style={{
+            display: 'block',
+            marginBottom: '20px',
+            width: '400px'
+          }}
         />
 
         <OutlinedInput

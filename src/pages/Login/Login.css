@@ -8,15 +8,11 @@
   margin-bottom: 30px;
 }
 
-form 	.MuiTextField-root,
 form .MuiOutlinedInput-root {
   margin-bottom: 20px;
-  width: 300px;
+  width: 400px;
 }
 
-form 	.MuiTextField-root {
-  display: block;
-}
 
 form .MuiOutlinedInput-root {
   display: flex;

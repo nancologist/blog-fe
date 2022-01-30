@@ -10,6 +10,7 @@ const AppInput = (props: any) => {
       placeholder={ props.placeholder ? props.placeholder : undefined }
       value={props.value}
       size={props.size}
+      sx={props.style}
     />
   )
 };
