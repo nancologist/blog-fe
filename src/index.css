@@ -7,6 +7,13 @@ font-family: 'Tinos', serif;
 font-family: 'Twinkle Star', cursive;
 font-family: 'Zilla Slab', serif; */
 
+:root {
+  --color-dark: #534d50;
+  --color-light: #f8f6f3;
+  --font-text: 'Tinos', serif;
+  --elevation-max: 100;
+}
+
 *, *::before, *::after {
   padding: 0;
   margin: 0;

@@ -1,4 +1,5 @@
 import { useState, ChangeEvent, SyntheticEvent, useEffect, useRef } from 'react';
+import { TextField } from '@mui/material';
 
 import './Admin.css';
 import api from '../../api/private';
@@ -176,12 +177,12 @@ const Admin = () => {
       <h2>Erstelle einen neuen Beitrag!</h2>
       <form onSubmit={handleSubmit} className="form">
         <div className="form-ctrl">
-          <input
-           id="title"
-           onChange={(e) => handleChange(e, 'title')}
-           placeholder="Add title..."
-           type="text"
-           value={form.title}
+          <TextField
+            id="title"
+            onChange={(e) => handleChange(e, 'title')}
+            label="Titel"
+            placeholder="Gib dem Beitrag einen Titel..."
+            value={form.title}
           />
         </div>
 

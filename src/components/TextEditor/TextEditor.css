@@ -5,3 +5,9 @@
 .editor-wrapper {
   border: solid black 1px;
 }
+
+.editor-wrapper {
+  height: 500px;
+  border-color: var(--color-dark);
+  border-radius: 10px;
+}
