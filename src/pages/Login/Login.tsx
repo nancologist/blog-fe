@@ -1,6 +1,6 @@
 import { ChangeEvent, SyntheticEvent, useState } from 'react';
 import { useNavigate } from 'react-router';
-import { Button, InputAdornment, IconButton, OutlinedInput, TextField } from '@mui/material';
+import { Button, InputAdornment, IconButton, OutlinedInput } from '@mui/material';
 import { Visibility, VisibilityOff } from '@mui/icons-material';
 
 import './Login.css';
@@ -76,8 +76,8 @@ const Login = () => {
               </IconButton>
             </InputAdornment>
           }
-          label="Kennwort"
           onChange={(e) => handleChange(e, 'pwd')}
+          placeholder="Kennwort"
           size="small"
           type={pwdShow ? 'text' : 'password'}
         />
