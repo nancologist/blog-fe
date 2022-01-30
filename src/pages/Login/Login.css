@@ -1,12 +1,23 @@
 .Login {
-  padding: 20px
+  margin: auto;
+  padding: 20px;
+  width: 600px;
 }
 
 .Login__title {
   margin-bottom: 30px;
 }
 
-.Login__form-ctrl {
+form 	.MuiTextField-root,
+form .MuiOutlinedInput-root {
+  margin-bottom: 20px;
+  width: 300px;
+}
+
+form 	.MuiTextField-root {
   display: block;
-  margin-bottom: 10px;
+}
+
+form .MuiOutlinedInput-root {
+  display: flex;
 }

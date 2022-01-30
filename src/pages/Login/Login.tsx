@@ -5,6 +5,8 @@ import { ChangeEvent, SyntheticEvent, useState } from 'react';
 import { useNavigate } from 'react-router';
 import { useAppDispatch } from '../../store/hooks';
 import * as authActions from '../../store/auth/actions';
+import { InputAdornment, IconButton, OutlinedInput, TextField } from '@mui/material';
+import { Visibility, VisibilityOff } from '@mui/icons-material';
 
 const ONE_HOUR = 3600 * 1000;
 
@@ -14,7 +16,10 @@ const Login = () => {
   const navigate = useNavigate();
   const dispatch = useAppDispatch();
 
-  const handleChange = (event: ChangeEvent<HTMLInputElement>, field: 'email' | 'pwd') => {
+  const handleChange = (
+    event: ChangeEvent<HTMLInputElement | HTMLTextAreaElement>,
+    field: 'email' | 'pwd'
+  ) => {
     setForm(prev => ({
       ...prev,
       [field]: event.target.value
@@ -43,24 +48,31 @@ const Login = () => {
     <div className="Login">
       <h2 className="Login__title">Anmelden</h2>
       <form onSubmit={logIn}>
-        <div className="Login__form-ctrl">
-          <input
-            type="email"
-            placeholder="Deine E-Mail..."
-            onChange={(e) => handleChange(e, 'email')}
-          />
-        </div>
 
-        <div className="Login__form-ctrl">
-          <input
-            type={pwdShow ? 'text' : 'password'}
-            placeholder="Dein Passwort..."
-            onChange={(e) => handleChange(e, 'pwd')}
+          <TextField
+            label="E-Mail"
+            onChange={(e) => handleChange(e, 'email')}
+            size="small"
           />
-          <button type="button" onClick={() => { setPwdShow(prev => !prev) }}>
-            {pwdShow ? 'hide' : 'show'}
-          </button>
-        </div>
+
+          <OutlinedInput
+            endAdornment={
+              <InputAdornment position="end">
+                <IconButton
+                  aria-label="toggle password visibility"
+                  onMouseDown={() => { setPwdShow(true) }}
+                  onMouseUp={() => { setPwdShow(false) }}
+                  edge="end"
+                >
+                  {pwdShow ? <VisibilityOff /> : <Visibility />}
+                </IconButton>
+              </InputAdornment>
+            }
+            label="Kennwort"
+            onChange={(e) => handleChange(e, 'pwd')}
+            size="small"
+            type={pwdShow ? 'text' : 'password'}
+          />
 
         <button type="submit">ANMELDEN</button>
       </form>
