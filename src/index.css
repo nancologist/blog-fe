@@ -11,6 +11,7 @@ font-family: 'Zilla Slab', serif; */
   --color-dark: #534d50;
   --color-light: #f8f6f3;
   --font-text: 'Tinos', serif;
+  --elevation-max: 100;
 }
 
 *, *::before, *::after {

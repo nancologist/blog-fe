@@ -6,6 +6,7 @@ header {
   min-height: 80px;
   position: fixed;
   width: 100%;
+  z-index: var(--elevation-max);
 }
 
 .nav {
