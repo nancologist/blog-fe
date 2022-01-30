@@ -21,3 +21,13 @@ form 	.MuiTextField-root {
 form .MuiOutlinedInput-root {
   display: flex;
 }
+
+form .MuiButton-root {
+  background-color: var(--color-dark);
+  font-family: var(--font-text);
+}
+
+form .MuiButton-root:hover {
+  background-color: var(--color-dark);
+  opacity: 0.9;
+}
