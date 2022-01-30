@@ -1,9 +1,10 @@
 import { NavLink } from 'react-router-dom';
 
+import './Header.css'
 import { useAppSelector } from '../../store/hooks';
 import { RootState } from '../../store/index';
-import { NavItem } from '../../types'
-import './Header.css'
+import { NavItem } from '../../types';
+import { categories } from '../../data';
 
 const Header = () => {
   const isAuth = useAppSelector((state: RootState) => state.auth.verified);
@@ -42,30 +43,13 @@ const navItems: NavItem[] = [
     label: 'Startseite',
     path: '/'
   },
-  {
-    label: 'Bindung und Erziehung',
-    path: '/bonding-and-upbringing'
-  },
-  {
-    label: 'Glaube',
-    path: '/belief'
-  },
-  {
-    label: 'Ernährung',
-    path: '/diet'
-  },
-  {
-    label: 'Wohnliches',
-    path: '/livable'
-  },
+
+  ...categories.map( ({ name, value }) => ({ label: name, path: '/' + value }) ),
+
   {
     label: 'Über mich',
     path: '/about'
   },
-  {
-    label: 'Admin',
-    path: '/admin'
-  }
 ]
 
 export default Header;

@@ -56,7 +56,7 @@ const Article = () => {
     title: '',
     body: '',
     imageName: '',
-    tags: []
+    category: ''
   });
   
   const createdAt = convertNumToDate(article.createdAt);

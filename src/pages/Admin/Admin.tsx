@@ -1,5 +1,6 @@
 import { useState, ChangeEvent, SyntheticEvent, useEffect, useRef } from 'react';
 import { convertToRaw, EditorState, convertFromRaw } from 'draft-js';
+import { Select, MenuItem, InputLabel, FormControl } from '@mui/material';
 
 import './Admin.css';
 import api from '../../api/private';
@@ -10,12 +11,13 @@ import imgPlaceholder from '../../assets/img/placeholder.png';
 import { generateBase64 } from '../../utils'
 import TextEditor from '../../components/TextEditor/TextEditor';
 import AppInput from '../../components/AppInput/AppInput';
+import { categories } from '../../data';
 
 const initialState = {
   article: {
     title: '',
     body: '',
-    tags: []
+    category: ''
   }
 };
 
@@ -56,7 +58,7 @@ const Admin = () => {
         setForm({
           title: storedArticle.title,
           body: storedArticle.body,
-          tags: storedArticle.tags
+          category: storedArticle.category
         })
 
         setEditorState(
@@ -70,7 +72,7 @@ const Admin = () => {
         )
       }
     },    
-    [isEditing, storedArticle.title, storedArticle.body, storedArticle.tags]
+    [isEditing, storedArticle.title, storedArticle.body, storedArticle.category]
   );
 
   const handleChange = (
@@ -183,7 +185,17 @@ const Admin = () => {
             onChange={(e: ChangeEvent<HTMLInputElement>) => handleChange(e, 'title')}
             placeholder="Gib dem Beitrag einen Titel..."
             value={form.title}
+            style={{ display: 'inline-block' }}
           />
+
+          <FormControl>
+            <InputLabel id="select-category">Kategorie</InputLabel>
+            <Select value="" labelId="select-category" label="Kategorie" placeholder="fjksldfj,...">
+              {categories.map(item => (
+                <MenuItem value={item.value} key={item.value}>{item.name}</MenuItem>
+              ))}
+            </Select>
+          </FormControl>
         </div>
 
         <div className="form-ctrl">
