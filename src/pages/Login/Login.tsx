@@ -1,12 +1,14 @@
-import api from '../../api/public';
-import './Login.css';
-import { LoginForm } from '../../types';
 import { ChangeEvent, SyntheticEvent, useState } from 'react';
 import { useNavigate } from 'react-router';
-import { useAppDispatch } from '../../store/hooks';
-import * as authActions from '../../store/auth/actions';
 import { Button, InputAdornment, IconButton, OutlinedInput, TextField } from '@mui/material';
 import { Visibility, VisibilityOff } from '@mui/icons-material';
+
+import './Login.css';
+import api from '../../api/public';
+import { LoginForm } from '../../types';
+import { useAppDispatch } from '../../store/hooks';
+import * as authActions from '../../store/auth/actions';
+import AppInput from '../../components/AppInput/AppInput';
 
 const ONE_HOUR = 3600 * 1000;
 
@@ -49,9 +51,10 @@ const Login = () => {
       <h2 className="Login__title">Anmelden</h2>
       <form onSubmit={logIn}>
 
-        <TextField
+        <AppInput
+          id="username"
           label="E-Mail"
-          onChange={(e) => handleChange(e, 'email')}
+          onChange={(e: ChangeEvent<HTMLInputElement>) => handleChange(e, 'email')}
           size="small"
         />
 

@@ -1,5 +1,5 @@
 import { useState, ChangeEvent, SyntheticEvent, useEffect, useRef } from 'react';
-import { TextField } from '@mui/material';
+import { convertToRaw, EditorState, convertFromRaw } from 'draft-js';
 
 import './Admin.css';
 import api from '../../api/private';
@@ -9,7 +9,7 @@ import { useAppSelector } from '../../store/hooks';
 import imgPlaceholder from '../../assets/img/placeholder.png';
 import { generateBase64 } from '../../utils'
 import TextEditor from '../../components/TextEditor/TextEditor';
-import { convertToRaw, EditorState, convertFromRaw } from 'draft-js';
+import AppInput from '../../components/AppInput/AppInput';
 
 const initialState = {
   article: {
@@ -177,10 +177,10 @@ const Admin = () => {
       <h2>Erstelle einen neuen Beitrag!</h2>
       <form onSubmit={handleSubmit} className="form">
         <div className="form-ctrl">
-          <TextField
+          <AppInput
             id="title"
-            onChange={(e) => handleChange(e, 'title')}
             label="Titel"
+            onChange={(e: ChangeEvent<HTMLInputElement>) => handleChange(e, 'title')}
             placeholder="Gib dem Beitrag einen Titel..."
             value={form.title}
           />
