@@ -15,4 +15,4 @@ export const categories = [
     name: 'Wohnliches',
     value: 'livable'
   }
-]
+];

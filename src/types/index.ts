@@ -20,6 +20,7 @@ export interface LoginForm {
 // Redux States: ================================================
 
 export interface ArticleState {
+  all: Article[];
   instance: Article;
   isEditing: boolean;
 }

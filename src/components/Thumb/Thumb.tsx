@@ -33,9 +33,12 @@ const Thumb = ({ article }: Props) => {
           </span>
         </div>
 
-        <div className="thumb_img-wrap">
-          <img src={imgUrl} alt="" />
-        </div>
+        {imageName ?
+          <div className="thumb_img-wrap">
+            <img src={imgUrl} alt="" />
+          </div> :
+          null
+        }
 
       </div>
     </Link>
