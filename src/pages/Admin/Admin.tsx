@@ -6,12 +6,14 @@ import './Admin.css';
 import api from '../../api/private';
 import { ArticleForm } from '../../types/models'
 import Notification from '../../components/Notification/Notification'
-import { useAppSelector } from '../../store/hooks';
 import imgPlaceholder from '../../assets/img/placeholder.png';
 import { generateBase64 } from '../../utils'
 import TextEditor from '../../components/TextEditor/TextEditor';
 import AppInput from '../../components/AppInput/AppInput';
 import { categories } from '../../data';
+
+import { useAppSelector, useAppDispatch } from '../../store/hooks';
+import * as articleActions from '../../store/article/actions';
 
 const initialState = {
   article: {
@@ -51,6 +53,7 @@ const Admin = () => {
   // Redux
   const isEditing = useAppSelector(state => state.article.isEditing);
   const storedArticle = useAppSelector(state => state.article.instance);
+  const dispatch = useAppDispatch();
 
   useEffect(
     function() {
@@ -84,6 +87,7 @@ const Admin = () => {
       [fieldName]: event.target.value
     }));
   }
+
   const handleFileChange = async (event: ChangeEvent | DragEvent) => {
     const files = 
       (event.target as HTMLInputElement).files! ||
@@ -102,6 +106,7 @@ const Admin = () => {
       console.error(err);
     }
   }
+
   const handleSubmit = async (event: SyntheticEvent) => {
     event.preventDefault()
 
@@ -142,6 +147,7 @@ const Admin = () => {
         res = await api.article.put({
           article: {
             ...storedArticle,
+            category: form.category,
             title: form.title,
             body: stringifyRichText(editorState)
           }
@@ -150,6 +156,8 @@ const Admin = () => {
       }
 
       if (success) {
+        if (isEditing) dispatch(articleActions.fetchAll());
+
         // clean up
         setForm(initialState.article)
         setSelectedFile(undefined);
