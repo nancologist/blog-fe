@@ -32,7 +32,7 @@ const TextEditor = ({ editorState, handleChangeEditorState }: any) => {
           editorState={editorState}
           handleKeyCommand={handleKeyCommand}
           onChange={handleChangeEditorState}
-          placeholder="Write some text..."
+          placeholder="Schreibe den Beitrag an..."
         />
       </div>
     </div>

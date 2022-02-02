@@ -1,43 +1,14 @@
-import { useEffect, useState } from 'react';
-
+// import { useEffect, useState } from 'react';
+import Category from '../../components/Category/Category';
 import './Home.css';
-import api from '../../api/public';
-import { Article } from '../../types/models';
-import Thumb from '../../components/Thumb/Thumb';
 
 const Home = () => {
-  const [articles, setArticles] = useState<Article[]>([]);
-  const [articlesEmpty, setArticlesEmpty] = useState(false);
-
-  useEffect(
-    () => {
-      (async () => {
-        try {
-          const { data } = await api.article.getAll()
-          if (data.length === 0) {
-            setArticlesEmpty(true)
-          } else {
-            setArticles(data)
-          }
-        } catch (err) {
-          console.error(err)
-        }
-      })()
-    },
-    []
-  );
+  
 
   return (
     <>
-      <div className="thumbs">
-
-        {
-          articlesEmpty ? <p>kein Beitrag verfügbar</p> :
-          articles.length === 0 ? <p>Loading...</p> :
-          articles.map(item => <Thumb article={item} key={item._id} />)
-        }
-
-      </div>
+      <p>Die Startseite (Platzhalter für weitere Inhalte) ...</p>
+      <Category />
     </>
   );
 }

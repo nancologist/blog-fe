@@ -4,11 +4,11 @@ export interface Article {
   body: string;
   createdAt: number;
   imageName?: string;
-  tags?: string[];
+  category: string;
 }
 
 export interface ArticleForm {
   title: string;
   body: string;
-  tags?: string[];
+  category: string;
 }
