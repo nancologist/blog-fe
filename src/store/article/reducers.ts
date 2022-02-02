@@ -1,7 +1,7 @@
 import { createReducer } from '@reduxjs/toolkit';
 import { ArticleState } from '../../types/index';
 import { Article } from '../../types/models';
-import { storeAll, store, isEditing } from './actions';
+import { store, isEditing, fetchAll } from './actions';
 
 const initialState = {
   all: [] as Article[],
@@ -12,8 +12,8 @@ const initialState = {
 export const articleReducer = createReducer(initialState, (builder) => {
   // TODO: make these 3 one-liners:
   builder
-  .addCase(storeAll, (state, action) => {
-    state.all = action.payload
+  .addCase(fetchAll.fulfilled, (state, action) => {
+    state.all = action.payload;
   })
   .addCase(store, (state, action) => {
     state.instance = action.payload;

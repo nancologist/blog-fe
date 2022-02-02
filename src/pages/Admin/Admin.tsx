@@ -1,17 +1,19 @@
 import { useState, ChangeEvent, SyntheticEvent, useEffect, useRef } from 'react';
 import { convertToRaw, EditorState, convertFromRaw } from 'draft-js';
-import { Select, MenuItem, InputLabel, FormControl } from '@mui/material';
+import { Select, MenuItem, InputLabel, FormControl, SelectChangeEvent } from '@mui/material';
 
 import './Admin.css';
 import api from '../../api/private';
 import { ArticleForm } from '../../types/models'
 import Notification from '../../components/Notification/Notification'
-import { useAppSelector } from '../../store/hooks';
 import imgPlaceholder from '../../assets/img/placeholder.png';
 import { generateBase64 } from '../../utils'
 import TextEditor from '../../components/TextEditor/TextEditor';
 import AppInput from '../../components/AppInput/AppInput';
 import { categories } from '../../data';
+
+import { useAppSelector, useAppDispatch } from '../../store/hooks';
+import * as articleActions from '../../store/article/actions';
 
 const initialState = {
   article: {
@@ -51,6 +53,7 @@ const Admin = () => {
   // Redux
   const isEditing = useAppSelector(state => state.article.isEditing);
   const storedArticle = useAppSelector(state => state.article.instance);
+  const dispatch = useAppDispatch();
 
   useEffect(
     function() {
@@ -76,7 +79,7 @@ const Admin = () => {
   );
 
   const handleChange = (
-    event: ChangeEvent<HTMLInputElement | HTMLTextAreaElement>,
+    event: ChangeEvent<HTMLInputElement | HTMLTextAreaElement> | SelectChangeEvent,
     fieldName: string
   ) => {
     setForm(prev => ({
@@ -84,6 +87,7 @@ const Admin = () => {
       [fieldName]: event.target.value
     }));
   }
+
   const handleFileChange = async (event: ChangeEvent | DragEvent) => {
     const files = 
       (event.target as HTMLInputElement).files! ||
@@ -102,12 +106,14 @@ const Admin = () => {
       console.error(err);
     }
   }
+
   const handleSubmit = async (event: SyntheticEvent) => {
     event.preventDefault()
 
     let data = new FormData();
     data.append('articleImage', selectedFile as File);
     data.append('articleTitle', form.title);
+    data.append('articleCategory', form.category)
     data.append(
       'articleBody',
       stringifyRichText(editorState)
@@ -141,6 +147,7 @@ const Admin = () => {
         res = await api.article.put({
           article: {
             ...storedArticle,
+            category: form.category,
             title: form.title,
             body: stringifyRichText(editorState)
           }
@@ -149,6 +156,8 @@ const Admin = () => {
       }
 
       if (success) {
+        if (isEditing) dispatch(articleActions.fetchAll());
+
         // clean up
         setForm(initialState.article)
         setSelectedFile(undefined);
@@ -190,7 +199,11 @@ const Admin = () => {
 
           <FormControl>
             <InputLabel id="select-category">Kategorie</InputLabel>
-            <Select value="" labelId="select-category" label="Kategorie" placeholder="fjksldfj,...">
+            <Select
+              value={form.category}
+              onChange={(e: SelectChangeEvent) => handleChange(e, 'category')}
+              labelId="select-category" label="Kategorie" placeholder="fjksldfj,..."
+            >
               {categories.map(item => (
                 <MenuItem value={item.value} key={item.value}>{item.name}</MenuItem>
               ))}

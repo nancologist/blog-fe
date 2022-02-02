@@ -6,10 +6,11 @@ import api from '../../api/public';
 import privateApi from '../../api/private';
 import { Article as IArticle } from '../../types/models';
 import { convertNumToDate } from '../../utils';
-import { useAppSelector, useAppDispatch } from '../../store/hooks';
-import * as articleActions from '../../store/article/actions';
 import { convertFromRaw, Editor, EditorState } from 'draft-js';
 // import pattern1 from '../../assets/img/muster-1.png';
+
+import { useAppSelector, useAppDispatch } from '../../store/hooks';
+import * as articleActions from '../../store/article/actions';
 
 const s3Url = process.env.REACT_APP_S3_URL
 
@@ -21,6 +22,7 @@ const Article = () => {
 
   const [bodyView, setBodyView] = useState<ReactElement | null>(null)
   useEffect(() => {
+    // TODO: should it also be move to a Redux Thunk? OR Replace it with an inner-Getter in Redux on All-Articles state ??
     (async () => {
       try {
         const res = await api.article.getSingle(id!)
@@ -73,6 +75,7 @@ const Article = () => {
     try {
       const res = await privateApi.article.delete(id!)
       if (res.data.code[0] === 'ARTICLE_DELETED') {
+        dispatch(articleActions.fetchAll());
         navigate('/', { replace: true });
       }
     } catch (err) {

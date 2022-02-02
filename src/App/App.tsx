@@ -6,7 +6,6 @@ import './App.css';
 import { useAppSelector, useAppDispatch } from '../store/hooks';
 import { RootState } from '../store';
 import api from '../api/private';
-import publicApi from '../api/public';
 import * as authActions from '../store/auth/actions';
 import * as themeActions from '../store/theme/actions';
 import * as articleActions from '../store/article/actions';
@@ -26,22 +25,9 @@ const App = () => {
   const isDark = useAppSelector((state: RootState) => state.theme.isDark);
   const dispatch = useAppDispatch();
 
-  useEffect(
-    () => {
-      (async () => {
-        try {
-          const res = await publicApi.article.getAll();
-          const articles = res.data;
-          dispatch(articleActions.storeAll(articles));
-
-
-        } catch (err) {
-          console.error(err)
-        }
-      })()
-    },
-    [dispatch]
-  );
+  useEffect(() => {
+    dispatch(articleActions.fetchAll())
+  }, [dispatch])
 
   useEffect(() => {
     // TODO: cleanup - outsource this function to sth like "initAuth()"

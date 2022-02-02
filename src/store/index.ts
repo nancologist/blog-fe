@@ -27,4 +27,6 @@ Interesting about Redux Toolkit:
 
 * To log the "state" inside a reducer use current(state) [ import { current} from 'redux-toolkit'; ]
 
+* InitialState could be a function which returns State-Object and can fetch data from LocalStorage
+
 */
