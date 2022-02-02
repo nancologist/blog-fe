@@ -15,7 +15,7 @@ const Header = () => {
       <nav className="nav">
         <div className="nav__items">
           {navItems.map(item => {
-            if (item.label === 'Admin' && !isAuth) {
+            if (item.path === '/admin' && !isAuth) {
               return null;
             }
 
@@ -50,6 +50,11 @@ const navItems: NavItem[] = [
     label: 'Über mich',
     path: '/about'
   },
+
+  {
+    label: 'Angelique',
+    path: '/admin'
+  }
 ]
 
 export default Header;

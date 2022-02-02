@@ -1,6 +1,6 @@
 import { useState, ChangeEvent, SyntheticEvent, useEffect, useRef } from 'react';
 import { convertToRaw, EditorState, convertFromRaw } from 'draft-js';
-import { Select, MenuItem, InputLabel, FormControl } from '@mui/material';
+import { Select, MenuItem, InputLabel, FormControl, SelectChangeEvent } from '@mui/material';
 
 import './Admin.css';
 import api from '../../api/private';
@@ -76,7 +76,7 @@ const Admin = () => {
   );
 
   const handleChange = (
-    event: ChangeEvent<HTMLInputElement | HTMLTextAreaElement>,
+    event: ChangeEvent<HTMLInputElement | HTMLTextAreaElement> | SelectChangeEvent,
     fieldName: string
   ) => {
     setForm(prev => ({
@@ -108,6 +108,7 @@ const Admin = () => {
     let data = new FormData();
     data.append('articleImage', selectedFile as File);
     data.append('articleTitle', form.title);
+    data.append('articleCategory', form.category)
     data.append(
       'articleBody',
       stringifyRichText(editorState)
@@ -190,7 +191,11 @@ const Admin = () => {
 
           <FormControl>
             <InputLabel id="select-category">Kategorie</InputLabel>
-            <Select value="" labelId="select-category" label="Kategorie" placeholder="fjksldfj,...">
+            <Select
+              value={form.category}
+              onChange={(e: SelectChangeEvent) => handleChange(e, 'category')}
+              labelId="select-category" label="Kategorie" placeholder="fjksldfj,..."
+            >
               {categories.map(item => (
                 <MenuItem value={item.value} key={item.value}>{item.name}</MenuItem>
               ))}
