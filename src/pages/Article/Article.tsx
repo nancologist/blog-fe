@@ -26,6 +26,10 @@ const Article = () => {
     (async () => {
       try {
         const res = await api.article.getSingle(id!)
+        if (!res.data) {
+          navigate('/not-found', {replace: true});
+          return;
+        }
         setArticle(res.data as IArticle);
         dispatch(articleActions.store(res.data as IArticle));
 
@@ -46,11 +50,13 @@ const Article = () => {
           />
         );
 
-      } catch (err) {
-        console.error(err)
+      } catch (err: any) {
+        if (err?.response?.status === 404) {
+          navigate('/not-found', {replace: true});
+        }
       }
     })();
-  }, [id, dispatch]);
+  }, [id, dispatch, navigate]);
 
   const [article, setArticle] = useState<IArticle>({
     _id: '',
@@ -60,7 +66,7 @@ const Article = () => {
     imageName: '',
     category: ''
   });
-  
+
   const createdAt = convertNumToDate(article.createdAt);
 
   const handleEdit = () => {

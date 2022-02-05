@@ -30,7 +30,7 @@ const App = () => {
   }, [dispatch])
 
   useEffect(() => {
-    // TODO: cleanup - outsource this function to sth like "initAuth()"
+    // TODO: cleanup - outsource this function to sth like "initAuth()" - Should it be moved to Redux Thunk?
     (async () => {
       try {
         const res = await api.auth.checkToken();
@@ -59,7 +59,7 @@ const App = () => {
 
     <div className="main">
       <Routes>
-        
+
         <Route path="/" element={<Home />} />
         {categories.map(category => {
           return (<Route
@@ -73,10 +73,11 @@ const App = () => {
 
         <Route path="/about" element={<About />} />
         <Route path="/admin" element={isAuth ? <Admin /> : <NotFound />} />
-        
+
         {/* FIXME: If id is not valid send it to NotFound  */}
         <Route path="/article/:id" element={<Article />} />
         <Route path="/l0g1n" element={<Login />} />
+        <Route path="/not-found" element={<NotFound />} />
         <Route path="*" element={<NotFound />} />
       </Routes>
     </div>
