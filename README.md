@@ -1,4 +1,10 @@
-__Init:__  
+# Blog App - FE
+* https://nifty-rosalind-466198.netlify.app/
+* ReactJS, Redux, Typescript
+* DraftJS
+* Automated Deployment on Netlify (triggered via push on master)
+
+## __Init:__  
 
 1. Create ReactApp + TS using NPM:  
     `npx create-react-app . --use-npm --template typescript`
